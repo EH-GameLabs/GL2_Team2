@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private bool isMoving = false;
+    private KeyCode currentKey;
+    private Vector3 currentDirection;
     private Vector3 originPos, targetPos;
     private Rigidbody playerRb;
 
@@ -14,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
+    public delegate void MyDelegate(KeyCode key, Vector3 direction);
+    MyDelegate myDelegate;
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -22,77 +27,54 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!isMoving) // Previene l'accumulo di coroutines
-        {
-            Move();
-            RotateWithAnimation();
-        }
+        if (!isMoving) RotateWithAnimation();
+        myDelegate?.Invoke(currentKey, currentDirection);
     }
 
     private void RotateWithAnimation()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            animator.SetBool("LoadingJump", true);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            PrepareToMove(KeyCode.W, Vector3.forward);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            animator.SetBool("LoadingJump", true);
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            PrepareToMove(KeyCode.S, Vector3.back);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            animator.SetBool("LoadingJump", true);
-            transform.rotation = Quaternion.Euler(0, -90, 0);
+            PrepareToMove(KeyCode.A, Vector3.left);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            animator.SetBool("LoadingJump", true);
-            transform.rotation = Quaternion.Euler(0, 90, 0);
+            PrepareToMove(KeyCode.D, Vector3.right);
         }
     }
 
-    private void Move()
+    private void PrepareToMove(KeyCode key, Vector3 direction) 
     {
-        if (Input.GetKeyUp(KeyCode.W))
+        animator.SetBool("LoadingJump", true);
+        transform.rotation = Quaternion.LookRotation(direction);
+        currentKey = key;
+        currentDirection = direction;
+        isMoving = true;
+        myDelegate = Move;
+    }
+
+    private void Move(KeyCode key, Vector3 direction)
+    {
+        if (Input.GetKeyUp(key)) 
         {
-            StartCoroutine(MovePlayer(Vector3.forward));
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            StartCoroutine(MovePlayer(Vector3.back));
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            StartCoroutine(MovePlayer(Vector3.left));
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            StartCoroutine(MovePlayer(Vector3.right));
+            StartCoroutine(MovePlayer(direction));
+            myDelegate = null;
         }
     }
 
     private IEnumerator MovePlayer(Vector3 direction)
     {
+        currentKey = 0;
         animator.SetBool("LoadingJump", false);
-        if (direction == Vector3.forward)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else if (direction == Vector3.right)
-        {
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
-        else if (direction == Vector3.back)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 270, 0);
-        }
-        isMoving = true;
+        transform.rotation = Quaternion.LookRotation(direction);
 
         float time = 0;
         Vector3 startPos = new Vector3(transform.position.x, originPos.y, transform.position.z);
