@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
@@ -11,9 +9,7 @@ public class UIManager : Singleton<UIManager>
         MainMenu,
         InGame,
         Pause,
-        RubaBandiera,
-        Win,
-        Lose,
+        GameOver,
     }
 
     private Dictionary<GameUI, IGameUI> registeredUIs = new Dictionary<GameUI, IGameUI>();
@@ -28,7 +24,7 @@ public class UIManager : Singleton<UIManager>
 
     private void Awake()
     {
-        foreach(IGameUI enumeratedUI in UIContainer.GetComponentsInChildren<IGameUI>(true))
+        foreach (IGameUI enumeratedUI in UIContainer.GetComponentsInChildren<IGameUI>(true))
         {
             RegisterUI(enumeratedUI.GetUIType(), enumeratedUI);
         }
@@ -38,7 +34,7 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowUI(GameUI uiType)
     {
-        foreach(KeyValuePair<GameUI, IGameUI> kvp in registeredUIs)
+        foreach (KeyValuePair<GameUI, IGameUI> kvp in registeredUIs)
         {
             kvp.Value.SetActive(kvp.Key == uiType);
         }
