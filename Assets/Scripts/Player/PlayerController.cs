@@ -11,16 +11,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [Header("Map Layer")]
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask mapLayer;
+    [SerializeField] private LayerMask logLayer;
 
     private bool isMoving = false;
     private KeyCode currentKey;
     private Vector3 currentDirection;
+    private MovementType currentMovType;
     private Vector3 originPos, targetPos;
     private Vector3 rayOffset = new Vector3(0, 0.5f, 0);
     private RaycastHit hit;
+    public enum MovementType
+    {
+        Normal,
+        Log,
+    }
 
-    public delegate void MyDelegate(KeyCode key, Vector3 direction);
+    public delegate void MyDelegate(KeyCode key, Vector3 direction, MovementType movementType);
     MyDelegate myDelegate;
 
     void Start()
@@ -31,21 +38,34 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!isGrounded())
+        if (!isGrounded(mapLayer) && !isGrounded(logLayer))
         {
             GameManager.instance.GameOver();
             gameObject.SetActive(false);
         }
 
-        Debug.DrawRay(transform.position + rayOffset, Vector3.forward);
-        if (!isMoving) RotateWithAnimation();
-        myDelegate?.Invoke(currentKey, currentDirection);
+        Debug.DrawRay(transform.position + rayOffset, Vector3.down * 5, Color.yellow);
+        if (!isMoving && isGrounded(mapLayer))
+        {
+            currentMovType = MovementType.Normal;
+            RotateWithAnimation(MovementType.Normal);
+        }
+        if (isGrounded(logLayer))
+        {
+            currentMovType = MovementType.Log;
+            RotateWithAnimation(MovementType.Log);
+        }
+        myDelegate?.Invoke(currentKey, currentDirection, currentMovType);
     }
 
-    public bool isGrounded() => Physics.Raycast(transform.position + rayOffset, Vector3.down, 5f, layerMask);
+    public bool isGrounded(LayerMask layer) => Physics.Raycast(transform.position + rayOffset, Vector3.down, out hit, 5f, layer);
 
-    private void RotateWithAnimation()
+    private void RotateWithAnimation(MovementType movementType)
     {
+        if (movementType == MovementType.Log)
+        {
+            transform.position = hit.transform.position + rayOffset;
+        }
         if (Input.GetKeyDown(KeyCode.W))
         {
             PrepareToMove(KeyCode.W, Vector3.forward);
@@ -80,16 +100,16 @@ public class PlayerController : MonoBehaviour
         myDelegate = Move;
     }
 
-    private void Move(KeyCode key, Vector3 direction)
+    private void Move(KeyCode key, Vector3 direction, MovementType movementType)
     {
         if (Input.GetKeyUp(key))
         {
-            StartCoroutine(MovePlayer(direction));
+            StartCoroutine(MovePlayer(direction, movementType));
             myDelegate = null;
         }
     }
 
-    private IEnumerator MovePlayer(Vector3 direction)
+    private IEnumerator MovePlayer(Vector3 direction, MovementType movementType)
     {
         currentKey = 0;
         animator.SetBool("LoadingJump", false);
@@ -98,6 +118,11 @@ public class PlayerController : MonoBehaviour
         float time = 0;
         Vector3 startPos = new Vector3(transform.position.x, originPos.y, transform.position.z);
         targetPos = startPos + direction;
+        if (movementType == MovementType.Log && (direction == Vector3.forward || direction == Vector3.back))
+        {
+            print("ciao");
+            targetPos -= new Vector3(targetPos.x % 1f - 0.5f, 0, targetPos.z % 1f + 0.5f);
+        }
         originPos = targetPos;
 
         while (time < timeToMove)
@@ -110,13 +135,14 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        transform.position = new Vector3(targetPos.x, originPos.y, targetPos.z);
+        if (movementType == MovementType.Normal || movementType == MovementType.Log && (direction == Vector3.forward || direction == Vector3.back))
+            transform.position = new Vector3(targetPos.x, originPos.y, targetPos.z);
         isMoving = false;
     }
 
     private bool CanPlayerMove(Vector3 direction)
     {
-        if (Physics.Raycast(transform.position + rayOffset, direction, 1, layerMask))
+        if (Physics.Raycast(transform.position + rayOffset, direction, 1, logLayer))
             return false;
 
         return true;
