@@ -1,17 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    //public float speed;
-    //public bool rightToLeft;
+    public List<Transform> obstacles = new List<Transform>();
+    public float obstacleSpeed = 1.0f;
 
-    //public void SpawnObstacle()
-    //{
-    //    ObstacleManager.instance.obstacles.Add(gameObject);
-    //}
+    private void Update()
+    {
+        print("obs: " + obstacles[0]);
+        print("count: " + obstacles.Count);
+        print("pos: " + obstacles[0].position);
+        obstacles[0].Translate(Vector3.right * Time.deltaTime * obstacleSpeed);
+    }
 
-    //public void RemoveObstacle()
-    //{
-    //    ObstacleManager.instance.obstacles.Remove(gameObject);
-    //}
 }

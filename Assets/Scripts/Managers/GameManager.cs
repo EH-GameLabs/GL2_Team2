@@ -4,7 +4,6 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private float currentSpeed;
 
-
     public void GameOver()
     {
         Debug.Log("Hai perso!");

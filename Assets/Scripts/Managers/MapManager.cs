@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour
+public class MapManager : Singleton<MapManager>
 {
+    [Header("MapManager Info")]
+    [Tooltip("CrossyRoad -> 9")]
+    [SerializeField] private int mapLength = 9;
     [Tooltip("MaxExclusive")]
     [SerializeField] private int maxObstaclesPerLine;
+
+    [Header("GameObjects")]
     [SerializeField] GameObject linePrefab;
     [SerializeField] GameObject obstaclePrefab;
 
@@ -23,7 +28,7 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < mapLength; i++)
         {
             currentline.Add(true);
             pathIndexes.Add(i);
@@ -70,13 +75,13 @@ public class MapManager : MonoBehaviour
             int obstacleIndex;
             do
             {
-                obstacleIndex = Random.Range(0, 9);
+                obstacleIndex = Random.Range(0, mapLength);
                 //print("Index " + obstacleIndex);
             } while (chosenIndexes.Contains(obstacleIndex));
             chosenIndexes.Add(obstacleIndex);
             //Instantiate(obstaclePrefab, spawnPoint + new Vector3(-3.5f + obstacleIndex, 0.5f, 0), Quaternion.identity);
         }
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < mapLength; i++)
         {
             if (chosenIndexes.Contains(i)) nextLine[i] = false; else nextLine[i] = true;
         }
@@ -130,7 +135,7 @@ public class MapManager : MonoBehaviour
 
     void CheckAdiacenti(int index)
     {
-        if (index + 1 < 9 && nextLine[index + 1] && !pathIndexes.Contains(index + 1))
+        if (index + 1 < mapLength && nextLine[index + 1] && !pathIndexes.Contains(index + 1))
         {
             pathIndexes.Add(index + 1);
             CheckAdiacenti(index + 1);

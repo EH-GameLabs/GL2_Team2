@@ -385,10 +385,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1746715740056736535, guid: a69b1769791391148979c0fc97510dfc,
+    - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
         type: 3}
-      propertyPath: timeToMove
-      value: 0.1
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
         type: 3}
@@ -439,6 +449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6860075351499956964, guid: a69b1769791391148979c0fc97510dfc,
         type: 3}
@@ -693,7 +708,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052285114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71323ad6d8a069647a79441be01e4103, type: 3}
   m_Name: 
@@ -727,12 +742,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d180cd549af71049be17555e4612de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapLength: 9
   maxObstaclesPerLine: 5
-  linePrefab: {fileID: 638946499249988275, guid: a6c2fb02ea5c4df46acf387c3dfcd71f,
+  linePrefab: {fileID: 638946499249988275, guid: 9bc72541157b03d47a2f14b3a36ec9b5,
     type: 3}
   obstaclePrefab: {fileID: 3993773330842725684, guid: f24b0aedbbc28474cad54dc750fcec39,
     type: 3}
-  mapContainer: {fileID: 0}
+  mapContainer: {fileID: 7376880270262223880}
 --- !u!4 &1068180787
 Transform:
   m_ObjectHideFlags: 0
@@ -1020,6 +1036,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 200462149118155440, guid: 9c39105c1f7ab224f84035dfb1d2ed8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2459667861424372477, guid: 9c39105c1f7ab224f84035dfb1d2ed8e,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1080,11 +1101,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Map
       objectReference: {fileID: 0}
+    - target: {fileID: 8253904965511462896, guid: 9c39105c1f7ab224f84035dfb1d2ed8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c39105c1f7ab224f84035dfb1d2ed8e, type: 3}
+--- !u!4 &7376880270262223880 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6840595409571576814, guid: 9c39105c1f7ab224f84035dfb1d2ed8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7376880270262223879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

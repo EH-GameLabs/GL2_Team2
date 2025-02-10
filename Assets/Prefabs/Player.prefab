@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6446173923376318458}
   - component: {fileID: 5416050591094418165}
   - component: {fileID: 6734362848677645207}
-  - component: {fileID: 3369177284850405964}
   m_Layer: 0
   m_Name: Capsule (2)
   m_TagString: Untagged
@@ -84,29 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3369177284850405964
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2411855468226849064}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2509197586808720028
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +94,6 @@ GameObject:
   - component: {fileID: 5673820079828911141}
   - component: {fileID: 1756968748822424830}
   - component: {fileID: 1060584304790409553}
-  - component: {fileID: 6739450029961982794}
   m_Layer: 0
   m_Name: Capsule (1)
   m_TagString: Untagged
@@ -191,29 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6739450029961982794
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2509197586808720028}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4889130389277478133
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,9 +297,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef35e1b61c21914a8102ececa667909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToMove: 0.2
+  timeToMove: 0.1
   maxHeight: 0.5
   animator: {fileID: 8740841748274701124}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!65 &5228386898774884304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -394,7 +349,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &8740841748274701124
 Animator:

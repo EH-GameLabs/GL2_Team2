@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 63760656410885942}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: _Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,8 +42,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4595583372156637581}
-  m_Layer: 0
-  m_Name: Map Obstacle
+  m_Layer: 6
+  m_Name: BaseMapLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 7144396513657972173}
   - component: {fileID: 9134064081753769715}
   - component: {fileID: 1768104211704757944}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}

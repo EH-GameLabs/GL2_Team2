@@ -3,12 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool isMoving = false;
-    private KeyCode currentKey;
-    private Vector3 currentDirection;
-    private Vector3 originPos, targetPos;
-    private Rigidbody playerRb;
-
     [Header("Player Stats")]
     [SerializeField] private float timeToMove = 0.2f;
     [SerializeField] private float maxHeight = 0.5f;
@@ -16,20 +10,39 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
+    [Header("Map Layer")]
+    [SerializeField] private LayerMask layerMask;
+
+    private bool isMoving = false;
+    private KeyCode currentKey;
+    private Vector3 currentDirection;
+    private Vector3 originPos, targetPos;
+    private Vector3 rayOffset = new Vector3(0, 0.5f, 0);
+    private RaycastHit hit;
+
     public delegate void MyDelegate(KeyCode key, Vector3 direction);
     MyDelegate myDelegate;
 
     void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
         originPos = transform.position;
     }
 
+
     void Update()
     {
+        if (!isGrounded())
+        {
+            GameManager.instance.GameOver();
+            gameObject.SetActive(false);
+        }
+
+        Debug.DrawRay(transform.position + rayOffset, Vector3.forward);
         if (!isMoving) RotateWithAnimation();
         myDelegate?.Invoke(currentKey, currentDirection);
     }
+
+    public bool isGrounded() => Physics.Raycast(transform.position + rayOffset, Vector3.down, 5f, layerMask);
 
     private void RotateWithAnimation()
     {
@@ -51,9 +64,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PrepareToMove(KeyCode key, Vector3 direction) 
+    private void PrepareToMove(KeyCode key, Vector3 direction)
     {
         animator.SetBool("LoadingJump", true);
+        if (!CanPlayerMove(direction))
+        {
+            animator.SetBool("LoadingJump", false);
+            return;
+        }
+
         transform.rotation = Quaternion.LookRotation(direction);
         currentKey = key;
         currentDirection = direction;
@@ -63,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move(KeyCode key, Vector3 direction)
     {
-        if (Input.GetKeyUp(key)) 
+        if (Input.GetKeyUp(key))
         {
             StartCoroutine(MovePlayer(direction));
             myDelegate = null;
@@ -93,6 +112,14 @@ public class PlayerController : MonoBehaviour
 
         transform.position = new Vector3(targetPos.x, originPos.y, targetPos.z);
         isMoving = false;
+    }
+
+    private bool CanPlayerMove(Vector3 direction)
+    {
+        if (Physics.Raycast(transform.position + rayOffset, direction, 1, layerMask))
+            return false;
+
+        return true;
     }
 }
 
