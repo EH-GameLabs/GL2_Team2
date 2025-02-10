@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
-    [Header("Map Layer")]
+    [Header("Layers")]
     [SerializeField] private LayerMask mapLayer;
     [SerializeField] private LayerMask logLayer;
 
@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         originPos = transform.position;
     }
-
 
     void Update()
     {
@@ -117,12 +116,11 @@ public class PlayerController : MonoBehaviour
 
         float time = 0;
         Vector3 startPos = new Vector3(transform.position.x, originPos.y, transform.position.z);
-        targetPos = startPos + direction;
         if (movementType == MovementType.Log && (direction == Vector3.forward || direction == Vector3.back))
         {
-            print("ciao");
             targetPos -= new Vector3(targetPos.x % 1f - 0.5f, 0, targetPos.z % 1f + 0.5f);
         }
+        targetPos = startPos + direction;
         originPos = targetPos;
 
         while (time < timeToMove)
