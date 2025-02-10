@@ -1,11 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+    [Tooltip("MaxExclusive")]
+    [SerializeField] private int maxObstaclesPerLine;
     [SerializeField] GameObject linePrefab;
     [SerializeField] GameObject obstaclePrefab;
+
+    [Header("Container")]
+    [SerializeField] private Transform mapContainer;
 
     List<bool> nextLine = new();
     List<bool> currentline = new();
@@ -36,13 +40,13 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    void SpawnLine() 
+    void SpawnLine()
     {
         //spawn
         /*Instantiate(linePrefab, spawnPoint, Quaternion.identity);
         RandomizeLine();
         spawnPoint.z += 1;*/
-        Instantiate(linePrefab, spawnPoint, Quaternion.identity);
+        Instantiate(linePrefab, spawnPoint, Quaternion.identity, mapContainer);
         do
         {
             RandomizeLine();
@@ -55,11 +59,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    void RandomizeLine() 
+    void RandomizeLine()
     {
         success = false;
-        int obstaclesNumber = Random.Range(0,8);
-        print("N. " + obstaclesNumber);
+        int obstaclesNumber = Random.Range(0, maxObstaclesPerLine);
+        //print("N. " + obstaclesNumber);
         List<int> chosenIndexes = new();
         for (int i = 0; i < obstaclesNumber; i++)
         {
@@ -78,7 +82,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    void CheckLine() 
+    void CheckLine()
     {
         tempPathIndexes = new();
         pathToRemoveIndexes = new();
@@ -100,17 +104,18 @@ public class MapManager : MonoBehaviour
             foreach (var item in nextLine)
             {
                 output += " " + item;
-            }print(output);
+            }
+            //print(output);
             output = "";
             foreach (var item in currentline)
             {
                 output += " " + item;
             }
-            print(output);
+            //print(output);
 
             for (int i = 0; i < nextLine.Count; i++)
             {
-                if (!nextLine[i]) Instantiate(obstaclePrefab, spawnPoint + new Vector3(-3.5f + i, 0.5f, 0), Quaternion.identity);
+                if (!nextLine[i]) Instantiate(obstaclePrefab, spawnPoint + new Vector3(-3.5f + i, 0.5f, 0), Quaternion.identity, mapContainer);
             }
             foreach (var index in pathToRemoveIndexes)
             {
@@ -123,14 +128,14 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    void CheckAdiacenti(int index) 
+    void CheckAdiacenti(int index)
     {
-        if ( index + 1 < 9 && nextLine[index + 1] && !pathIndexes.Contains(index + 1) ) 
+        if (index + 1 < 9 && nextLine[index + 1] && !pathIndexes.Contains(index + 1))
         {
             pathIndexes.Add(index + 1);
             CheckAdiacenti(index + 1);
         }
-        if ( index - 1 > -1 && nextLine[index - 1] && !pathIndexes.Contains(index - 1) )
+        if (index - 1 > -1 && nextLine[index - 1] && !pathIndexes.Contains(index - 1))
         {
             pathIndexes.Add(index - 1);
             CheckAdiacenti(index - 1);
