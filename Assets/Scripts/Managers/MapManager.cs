@@ -10,7 +10,7 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] private int maxObstaclesPerLine;
 
     [Header("GameObjects")]
-    [SerializeField] GameObject linePrefab;
+    [SerializeField] List<GameObject> linePrefabs;
     [SerializeField] GameObject obstaclePrefab;
 
     [Header("Container")]
@@ -34,29 +34,37 @@ public class MapManager : Singleton<MapManager>
             pathIndexes.Add(i);
             nextLine.Add(false);
         }
-        SpawnLine();
+        SpawnLine(ChooseLine());
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnLine();
+            SpawnLine(ChooseLine());
         }
     }
 
-    void SpawnLine()
+    GameObject ChooseLine() 
+    {
+        return linePrefabs[Random.Range(0,linePrefabs.Count)];
+    }
+
+    void SpawnLine(GameObject line)
     {
         //spawn
         /*Instantiate(linePrefab, spawnPoint, Quaternion.identity);
         RandomizeLine();
         spawnPoint.z += 1;*/
-        Instantiate(linePrefab, spawnPoint, Quaternion.identity, mapContainer);
-        do
+        if (line.name.Equals("BaseMapLine"))
         {
-            RandomizeLine();
-            CheckLine();
-        } while (!success);
+            do
+            {
+                RandomizeLine();
+                CheckLine();
+            } while (!success);
+        }
+        Instantiate(line, spawnPoint, Quaternion.identity, mapContainer);
         spawnPoint.z += 1;
         for (int i = 0; i < nextLine.Count; i++)
         {
