@@ -7,7 +7,7 @@ public class RiverLine : MonoBehaviour
     [Header("River Info")]
     [SerializeField] private int numObstacles = 3;
     [SerializeField] private float obstacleSpeed = 1.0f;
-    [SerializeField] private bool rightToLeft;
+    [SerializeField] private bool leftToRight;
     private Vector3 horizontalDir;
 
     [Header("Obstacles")]
@@ -31,7 +31,7 @@ public class RiverLine : MonoBehaviour
 
     private void Update()
     {
-        horizontalDir = rightToLeft ? Vector3.right : Vector3.left;
+        horizontalDir = leftToRight ? Vector3.right : Vector3.left;
         foreach (Transform t in obstacles)
         {
             t.Translate(obstacleSpeed * Time.deltaTime * horizontalDir);
@@ -42,13 +42,13 @@ public class RiverLine : MonoBehaviour
     private IEnumerator SpawnAtRandomInterval(float timer)
     {
         yield return new WaitForSeconds(timer);
-        GameObject g = Instantiate(logPrefab, rightToLeft ? point1.transform.position : point2.transform.position, Quaternion.identity, transform);
+        GameObject g = Instantiate(logPrefab, leftToRight ? point1.transform.position : point2.transform.position, Quaternion.identity, transform);
         obstacles.Add(g.transform);
     }
 
     private void CheckIfOutsideMap(Transform t)
     {
-        if (rightToLeft)
+        if (leftToRight)
         {
             if (Vector3.Distance(t.position, point2.transform.position) < 1f)
             {

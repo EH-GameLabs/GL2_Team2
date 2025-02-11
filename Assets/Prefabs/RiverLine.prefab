@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numObstacles: 3
   obstacleSpeed: 1
-  rightToLeft: 1
+  leftToRight: 1
   obstacles: []
   logPrefab: {fileID: 1286120316306331921, guid: 5785f0ecd1f43ad43bd7cd1b05f1949f,
     type: 3}

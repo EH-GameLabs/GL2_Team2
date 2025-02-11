@@ -39,6 +39,7 @@ public class MapManager : Singleton<MapManager>
 
     private void Update()
     {
+        SpawnLine(ChooseLine());
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpawnLine(ChooseLine());
@@ -63,13 +64,19 @@ public class MapManager : Singleton<MapManager>
                 RandomizeLine();
                 CheckLine();
             } while (!success);
+            for (int i = 0; i < nextLine.Count; i++)
+            {
+                currentline[i] = nextLine[i];
+            }
+        }
+        else {
+            for (int i = 0; i < mapLength; i++)
+            {
+                currentline[i] = true;
+            }
         }
         Instantiate(line, spawnPoint, Quaternion.identity, mapContainer);
         spawnPoint.z += 1;
-        for (int i = 0; i < nextLine.Count; i++)
-        {
-            currentline[i] = nextLine[i];
-        }
     }
 
     void RandomizeLine()
