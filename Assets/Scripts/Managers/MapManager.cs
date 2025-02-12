@@ -23,6 +23,7 @@ public class MapManager : Singleton<MapManager>
     List<int> pathToRemoveIndexes = new();
 
     bool success;
+    private GameObject lineTmp;
 
     Vector3 spawnPoint = new Vector3(0, 0, 0.5f);
 
@@ -34,29 +35,30 @@ public class MapManager : Singleton<MapManager>
             pathIndexes.Add(i);
             nextLine.Add(false);
         }
-        SpawnLine(ChooseLine());
+        // finché non arrivi al collider -> 
+        for (int i = 0; i < 10; i++)
+        {
+            SpawnLine(ChooseLine());
+        }
     }
 
     private void Update()
     {
-        // SpawnLine(ChooseLine());
+        //SpawnLine(ChooseLine());
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpawnLine(ChooseLine());
         }
     }
 
-    GameObject ChooseLine()
+    public GameObject ChooseLine()
     {
         return linePrefabs[Random.Range(0, linePrefabs.Count)];
     }
 
-    void SpawnLine(GameObject line)
+    public void SpawnLine(GameObject line)
     {
-        //spawn
-        /*Instantiate(linePrefab, spawnPoint, Quaternion.identity);
-        RandomizeLine();
-        spawnPoint.z += 1;*/
+        lineTmp = Instantiate(line, spawnPoint, Quaternion.identity, mapContainer);
         if (line.name.Equals("BaseMapLine"))
         {
             do
@@ -76,7 +78,6 @@ public class MapManager : Singleton<MapManager>
                 currentline[i] = true;
             }
         }
-        Instantiate(line, spawnPoint, Quaternion.identity, mapContainer);
         spawnPoint.z += 1;
     }
 
@@ -121,22 +122,22 @@ public class MapManager : Singleton<MapManager>
         }
         if (success)
         {
-            string output = "";
-            foreach (var item in nextLine)
-            {
-                output += " " + item;
-            }
+            //string output = "";
+            //foreach (var item in nextLine)
+            //{
+            //    output += " " + item;
+            //}
             //print(output);
-            output = "";
-            foreach (var item in currentline)
-            {
-                output += " " + item;
-            }
+            //output = "";
+            //foreach (var item in currentline)
+            //{
+            //    output += " " + item;
+            //}
             //print(output);
 
             for (int i = 0; i < nextLine.Count; i++)
             {
-                if (!nextLine[i]) Instantiate(obstaclePrefab, spawnPoint + new Vector3(-3.5f + i, 0.5f, 0), Quaternion.identity, mapContainer);
+                if (!nextLine[i]) Instantiate(obstaclePrefab, spawnPoint + new Vector3(-3.5f + i, 0.5f, 0), Quaternion.identity, lineTmp.transform);
             }
             foreach (var index in pathToRemoveIndexes)
             {

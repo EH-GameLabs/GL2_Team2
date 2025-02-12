@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4595583372156637581}
   - component: {fileID: 6971058855403540492}
-  m_Layer: 6
+  - component: {fileID: 8458333052486153233}
+  m_Layer: 4
   m_Name: RiverLine
-  m_TagString: Untagged
+  m_TagString: Line
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,6 +55,27 @@ MonoBehaviour:
     type: 3}
   point1: {fileID: 6671599122756469847}
   point2: {fileID: 4555470823334651470}
+--- !u!65 &8458333052486153233
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638946499249988275}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9, y: 1, z: 1}
+  m_Center: {x: 0.5, y: -0.55, z: 0}
 --- !u!1 &891350539181049338
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +87,7 @@ GameObject:
   - component: {fileID: 8015099395063552281}
   - component: {fileID: 7144396513657972173}
   - component: {fileID: 9134064081753769715}
-  m_Layer: 6
+  m_Layer: 4
   m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d077e5fb82e8c954296c02a57f50a8bb, type: 2}
+  - {fileID: 2100000, guid: 99dfa859edc7cbe43b4f8dcb1c977d24, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5496313405062524963}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: _SpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6484407960767861818}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Point2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8525771809797004240}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Point1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

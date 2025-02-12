@@ -12,6 +12,7 @@ public class CameraMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!GameManager.instance.IsGameActive()) return;
         transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed * addVelocity);
     }
 
