@@ -39,16 +39,16 @@ public class MapManager : Singleton<MapManager>
 
     private void Update()
     {
-        SpawnLine(ChooseLine());
+        // SpawnLine(ChooseLine());
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpawnLine(ChooseLine());
         }
     }
 
-    GameObject ChooseLine() 
+    GameObject ChooseLine()
     {
-        return linePrefabs[Random.Range(0,linePrefabs.Count)];
+        return linePrefabs[Random.Range(0, linePrefabs.Count)];
     }
 
     void SpawnLine(GameObject line)
@@ -69,7 +69,8 @@ public class MapManager : Singleton<MapManager>
                 currentline[i] = nextLine[i];
             }
         }
-        else {
+        else
+        {
             for (int i = 0; i < mapLength; i++)
             {
                 currentline[i] = true;

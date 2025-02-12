@@ -16,9 +16,9 @@ public class MainMenuUI : MonoBehaviour, IGameUI
     }
     #endregion
 
-    [SerializeField] private UIManager.GameUI playGameUI;
     public void PlayGameUI()
     {
-        UIManager.instance.ShowUI(playGameUI);
+        UIManager.instance.ShowUI(UIManager.GameUI.InGame);
+        GameManager.instance.SetIsGameActive(true);
     }
 }

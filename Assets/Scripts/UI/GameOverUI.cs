@@ -16,8 +16,12 @@ public class GameOverUI : MonoBehaviour, IGameUI
     }
     #endregion
 
+    [SerializeField] private GameObject coins;
+
     public void GoToMainMenu()
     {
+        GameManager.instance.ResetAll();
         UIManager.instance.ShowUI(UIManager.GameUI.MainMenu);
+        coins.SetActive(true);
     }
 }

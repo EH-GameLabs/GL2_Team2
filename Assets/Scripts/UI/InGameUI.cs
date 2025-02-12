@@ -16,8 +16,16 @@ public class InGameUI : MonoBehaviour, IGameUI
     }
     #endregion
 
+    [SerializeField] private GameObject coins;
+
     public void GoToPause()
     {
         UIManager.instance.ShowUI(UIManager.GameUI.Pause);
+    }
+
+    public void GoToGameOver()
+    {
+        coins.SetActive(false);
+        UIManager.instance.ShowUI(UIManager.GameUI.GameOver);
     }
 }

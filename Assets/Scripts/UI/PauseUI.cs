@@ -19,9 +19,11 @@ public class PauseUI : MonoBehaviour, IGameUI
     #endregion
 
     [SerializeField] private TextMeshProUGUI resumeText;
+    [SerializeField] private GameObject resumeButton;
 
     public void GoToInGame()
     {
+        resumeButton.SetActive(false);
         StartCoroutine(ResumeTimerRoutine());
         UIManager.instance.ShowUI(UIManager.GameUI.Pause);
     }
@@ -37,7 +39,9 @@ public class PauseUI : MonoBehaviour, IGameUI
             t--;
         }
 
-        UIManager.instance.ShowUI(UIManager.GameUI.Pause);
+        resumeButton.SetActive(true);
+        UIManager.instance.ShowUI(UIManager.GameUI.InGame);
+        GameManager.instance.SetIsGameActive(true);
     }
 
 }

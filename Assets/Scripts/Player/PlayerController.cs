@@ -37,10 +37,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.IsGameActive()) return;
+
         if (!isGrounded(mapLayer) && !isGrounded(logLayer))
         {
             GameManager.instance.GameOver();
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
         Debug.DrawRay(transform.position + rayOffset, Vector3.down * 5, Color.yellow);
@@ -65,22 +67,28 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = hit.transform.position + rayOffset;
         }
+
         if (Input.GetKeyDown(KeyCode.W))
         {
+            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.W, Vector3.forward);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
+            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.S, Vector3.back);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
+            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.A, Vector3.left);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
+            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.D, Vector3.right);
         }
+
     }
 
     private void PrepareToMove(KeyCode key, Vector3 direction)
@@ -140,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
     private bool CanPlayerMove(Vector3 direction)
     {
-        if (Physics.Raycast(transform.position + rayOffset, direction, 1, logLayer))
+        if (Physics.Raycast(transform.position + rayOffset, direction, 1, mapLayer))
             return false;
 
         return true;
