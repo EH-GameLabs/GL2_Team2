@@ -6,7 +6,7 @@ public class SpawnNextCollider : MonoBehaviour
     {
         if (other.CompareTag("Line"))
         {
-            MapManager.instance.SpawnLine(MapManager.instance.ChooseLine());
+            MapManager.Instance.SpawnLine(MapManager.Instance.ChooseLine());
         }
     }
 }

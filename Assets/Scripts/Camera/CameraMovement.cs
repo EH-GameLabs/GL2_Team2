@@ -7,12 +7,12 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
-        currentSpeed = GameManager.instance.GetCurrentSpeed();
+        currentSpeed = GameManager.Instance.GetCurrentSpeed();
     }
 
     private void LateUpdate()
     {
-        if (!GameManager.instance.IsGameActive()) return;
+        if (!GameManager.Instance.IsGameActive()) return;
         transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed * addVelocity);
     }
 

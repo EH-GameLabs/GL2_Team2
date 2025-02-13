@@ -1,30 +1,51 @@
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour//Singleton<GameManager>
 {
+    private static GameManager instance;
+    public static GameManager Instance
+    {
+        get { return instance; }
+    }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }DontDestroyOnLoad(this);
+    }
+
     [SerializeField] private float currentSpeed;
 
     private bool isGameActive;
     private UIManager.GameUI currentGameUI;
     private GameObject playerObj;
 
+    private int beers;
+
     private void Start()
     {
-        currentGameUI = UIManager.instance.GetCurrentActiveUI();
+        beers = 0;
+        currentGameUI = UIManager.Instance.GetCurrentActiveUI();
         playerObj = FindAnyObjectByType<PlayerController>().gameObject;
     }
 
     private void Update()
     {
-        if (currentGameUI != UIManager.instance.GetCurrentActiveUI())
+        if (currentGameUI != UIManager.Instance.GetCurrentActiveUI())
         {
-            currentGameUI = UIManager.instance.GetCurrentActiveUI();
+            currentGameUI = UIManager.Instance.GetCurrentActiveUI();
         }
 
         if (isGameActive && currentGameUI == UIManager.GameUI.InGame && Input.GetKeyDown(KeyCode.Escape))
         {
             isGameActive = false;
-            UIManager.instance.ShowUI(UIManager.GameUI.Pause);
+            UIManager.Instance.ShowUI(UIManager.GameUI.Pause);
         }
     }
 
@@ -32,7 +53,6 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("Hai perso!");
         isGameActive = false;
-
         FindAnyObjectByType<InGameUI>().GoToGameOver();
     }
 
@@ -49,5 +69,6 @@ public class GameManager : Singleton<GameManager>
     public bool IsGameActive() { return isGameActive; }
     public void SetIsGameActive(bool active) { isGameActive = active; }
     public float GetCurrentSpeed() { return currentSpeed; }
-
+    public void SetBeersAmount(int amount) { beers = amount; }
+    public int GetCurrentBeersAmount() { return beers; }
 }

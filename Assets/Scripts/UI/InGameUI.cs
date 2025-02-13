@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class InGameUI : MonoBehaviour, IGameUI
 {
@@ -16,16 +17,21 @@ public class InGameUI : MonoBehaviour, IGameUI
     }
     #endregion
 
-    [SerializeField] private GameObject coins;
+    [SerializeField] private GameObject beersText;
 
     public void GoToPause()
     {
-        UIManager.instance.ShowUI(UIManager.GameUI.Pause);
+        UIManager.Instance.ShowUI(UIManager.GameUI.Pause);
     }
 
     public void GoToGameOver()
     {
-        coins.SetActive(false);
-        UIManager.instance.ShowUI(UIManager.GameUI.GameOver);
+        beersText.SetActive(false);
+        UIManager.Instance.ShowUI(UIManager.GameUI.GameOver);
+    }
+
+    public void SetBeersAmount(int amount) 
+    {
+        beersText.GetComponentInChildren<TextMeshProUGUI>().text = amount.ToString();
     }
 }

@@ -1,8 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoBehaviour//Singleton<UIManager>
 {
+    private static UIManager instance;
+    public static UIManager Instance
+    {
+        get { return instance; }
+    }
+
     public enum GameUI
     {
         NONE,
@@ -24,12 +30,24 @@ public class UIManager : Singleton<UIManager>
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+
         foreach (IGameUI enumeratedUI in UIContainer.GetComponentsInChildren<IGameUI>(true))
         {
             RegisterUI(enumeratedUI.GetUIType(), enumeratedUI);
         }
 
+        
+
         ShowUI(startingGameUI); // TODO -> SHOW MAIN MENU FIRST
+        
     }
 
     public void ShowUI(GameUI uiType)

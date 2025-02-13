@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverUI : MonoBehaviour, IGameUI
 {
@@ -16,12 +17,11 @@ public class GameOverUI : MonoBehaviour, IGameUI
     }
     #endregion
 
-    [SerializeField] private GameObject coins;
-
     public void GoToMainMenu()
     {
-        GameManager.instance.ResetAll();
-        UIManager.instance.ShowUI(UIManager.GameUI.MainMenu);
-        coins.SetActive(true);
+        //GameManager.Instance.ResetAll();
+        //UIManager.Instance.ShowUI(UIManager.GameUI.MainMenu);
+        //coins.SetActive(true);
+        SceneManager.LoadScene(0);
     }
 }

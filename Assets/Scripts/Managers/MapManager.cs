@@ -1,8 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager : Singleton<MapManager>
+public class MapManager : MonoBehaviour//Singleton<MapManager>
 {
+    private static MapManager instance;
+    public static MapManager Instance
+    {
+        get { return instance; }
+    }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     [Header("MapManager Info")]
     [Tooltip("CrossyRoad -> 9")]
     [SerializeField] private int mapLength = 9;

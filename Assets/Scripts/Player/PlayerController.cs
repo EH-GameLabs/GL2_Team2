@@ -33,11 +33,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.IsGameActive()) return;
+        if (!GameManager.Instance.IsGameActive()) return;
 
         if (!isGrounded(mapLayer) && !isGrounded(logLayer) && isGrounded(waterLayer))
         {
-            GameManager.instance.GameOver();
+            GameManager.Instance.GameOver();
             //gameObject.SetActive(false);
         }
 
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         myDelegate?.Invoke(currentKey, currentDirection, currentMovType);
     }
 
-    public bool isGrounded(LayerMask layer) => Physics.Raycast(transform.position + rayOffset, Vector3.down, out hit, 0.6f, layer);
+    public bool isGrounded(LayerMask layer) => Physics.Raycast(transform.position + rayOffset, Vector3.down, out hit, 1f, layer);
 
     private void RotateWithAnimation(MovementType movementType)
     {
@@ -66,22 +66,22 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
+            UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.W, Vector3.forward);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
+            UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.S, Vector3.back);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
+            UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.A, Vector3.left);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            UIManager.instance.ShowUI(UIManager.GameUI.InGame);
+            UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
             PrepareToMove(KeyCode.D, Vector3.right);
         }
 

@@ -6,7 +6,7 @@ public class BackCollider : MonoBehaviour
     {
         if (other.CompareTag(Tags.Player))
         {
-            GameManager.instance.GameOver();
+            GameManager.Instance.GameOver();
         }
     }
 }

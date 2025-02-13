@@ -18,7 +18,7 @@ public class MainMenuUI : MonoBehaviour, IGameUI
 
     public void PlayGameUI()
     {
-        UIManager.instance.ShowUI(UIManager.GameUI.InGame);
-        GameManager.instance.SetIsGameActive(true);
+        UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
+        GameManager.Instance.SetIsGameActive(true);
     }
 }
