@@ -1,7 +1,15 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour//Singleton<MapManager>
+[System.Serializable]
+public class WeightedElement
+{
+    public GameObject element;
+    [Range(0f, 1f)] public float weight;
+}
+
+public class MapManager : MonoBehaviour
 {
     private static MapManager instance;
     public static MapManager Instance
@@ -27,9 +35,10 @@ public class MapManager : MonoBehaviour//Singleton<MapManager>
     [Tooltip("MaxExclusive")]
     [SerializeField] private int maxObstaclesPerLine;
 
-    [Header("GameObjects")]
-    [SerializeField] List<GameObject> linePrefabs;
-    [SerializeField] GameObject obstaclePrefab;
+    [Header("Map Prefabs")]
+    [SerializeField] private List<WeightedElement> elements = new List<WeightedElement>();
+    [SerializeField] private List<GameObject> obstaclesPrefab;
+    [SerializeField] private WeightedElement coin;
 
     [Header("Container")]
     [SerializeField] private Transform mapContainer;
@@ -71,7 +80,18 @@ public class MapManager : MonoBehaviour//Singleton<MapManager>
 
     public GameObject ChooseLine()
     {
-        return linePrefabs[Random.Range(0, linePrefabs.Count)];
+        //return linePrefabs[Random.Range(0, linePrefabs.Count)];
+        float randomValue = Random.value; // Valore tra 0 e 1
+        float cumulative = 0f;
+
+        foreach (var element in elements)
+        {
+            cumulative += element.weight;
+            if (randomValue <= cumulative)
+                return element.element;
+        }
+
+        return elements.Last().element; // Fallback
     }
 
     public void SpawnLine(GameObject line)
@@ -140,22 +160,9 @@ public class MapManager : MonoBehaviour//Singleton<MapManager>
         }
         if (success)
         {
-            //string output = "";
-            //foreach (var item in nextLine)
-            //{
-            //    output += " " + item;
-            //}
-            //print(output);
-            //output = "";
-            //foreach (var item in currentline)
-            //{
-            //    output += " " + item;
-            //}
-            //print(output);
-
             for (int i = 0; i < nextLine.Count; i++)
             {
-                if (!nextLine[i]) Instantiate(obstaclePrefab, spawnPoint + new Vector3(-3.5f + i, 0.5f, 0), Quaternion.identity, lineTmp.transform);
+                if (!nextLine[i]) Instantiate(obstaclesPrefab[0], spawnPoint + new Vector3(-3.5f + i, 0.5f, 0), Quaternion.identity, lineTmp.transform);
             }
             foreach (var index in pathToRemoveIndexes)
             {
@@ -164,6 +171,14 @@ public class MapManager : MonoBehaviour//Singleton<MapManager>
             foreach (var index in tempPathIndexes)
             {
                 CheckAdiacenti(index);
+            }
+            foreach (var index in pathIndexes)
+            {
+                bool hasToSpawn = Random.Range(0f, 1f) < coin.weight ? true : false;
+                if (hasToSpawn)
+                {
+                    Instantiate(coin.element, spawnPoint + new Vector3(-3.5f + index, 0.5f, 0), Quaternion.identity, lineTmp.transform);
+                }
             }
         }
     }
@@ -181,4 +196,29 @@ public class MapManager : MonoBehaviour//Singleton<MapManager>
             CheckAdiacenti(index - 1);
         }
     }
+
+    #region RANDOM WEIGHT
+    private void OnValidate()
+    {
+        NormalizeWeights();
+    }
+
+    private void NormalizeWeights()
+    {
+        float total = elements.Sum(e => e.weight);
+        if (total == 0) return;
+
+        for (int i = 0; i < elements.Count; i++)
+        {
+            elements[i].weight = Mathf.Round((elements[i].weight / total) * 100f) / 100f; // Arrotonda a due cifre decimali
+        }
+
+        // Assicura che la somma sia esattamente 1 (aggiustando l'ultimo valore)
+        float adjustedTotal = elements.Sum(e => e.weight);
+        if (adjustedTotal != 1f && elements.Count > 0)
+        {
+            elements[^1].weight += (1f - adjustedTotal);
+        }
+    }
+    #endregion
 }

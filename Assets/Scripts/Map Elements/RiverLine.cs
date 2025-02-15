@@ -27,6 +27,7 @@ public class RiverLine : MonoBehaviour
             float timer = Random.Range(1 + i, numObstacles * 2 * i) + size * i;
             StartCoroutine(SpawnAtRandomInterval(timer));
         }
+        leftToRight = Random.Range(0, 2) == 0 ? false : true;
     }
 
     private void Update()
