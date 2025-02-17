@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class MovingObstacle : MonoBehaviour
+public class RiverDeathPoint : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Tags.Player))
         {
-            print("macchina morte");
+            print("fiume morte");
             // Animazione
             //animator.SetBool("Dead", true);
             GameManager.instance.GameOver();
-            other.GetComponent<BoxCollider>().enabled = false;
         }
     }
 }

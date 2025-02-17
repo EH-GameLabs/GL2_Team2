@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleSpeed: 50
-  spawnTimer: 5
+  spawnTimer: 4
   leftToRight: 0
   obstaclePrefab: {fileID: 1286120316306331921, guid: 45387899c5f793e4aae874a2b45ef13c,
     type: 3}

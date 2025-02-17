@@ -41,7 +41,7 @@ public class PauseUI : MonoBehaviour, IGameUI
 
         resumeButton.SetActive(true);
         UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
-        GameManager.Instance.SetIsGameActive(true);
+        GameManager.instance.SetIsGameActive(true);
     }
 
 }

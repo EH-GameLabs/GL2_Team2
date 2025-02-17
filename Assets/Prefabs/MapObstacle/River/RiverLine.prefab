@@ -232,6 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8387288152573049508}
+  - component: {fileID: 6132363584350239389}
   - component: {fileID: 4753779808761571146}
   m_Layer: 0
   m_Name: LeftPoint
@@ -249,12 +250,24 @@ Transform:
   m_GameObject: {fileID: 4945796272860692223}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.52, y: 0.5, z: 0}
+  m_LocalPosition: {x: -4.8, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5006880493328012318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6132363584350239389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945796272860692223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c24458ddf9068748841a963cebcbc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &4753779808761571146
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -349,6 +362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5195121596063870105}
+  - component: {fileID: 8067313967254737997}
   - component: {fileID: 1439266693786740830}
   m_Layer: 0
   m_Name: RightPoint
@@ -366,12 +380,24 @@ Transform:
   m_GameObject: {fileID: 8452215316828836904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.52, y: 0.5, z: 0}
+  m_LocalPosition: {x: 5.8, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5006880493328012318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8067313967254737997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452215316828836904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c24458ddf9068748841a963cebcbc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1439266693786740830
 BoxCollider:
   m_ObjectHideFlags: 0

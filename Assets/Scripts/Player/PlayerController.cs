@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -28,16 +30,29 @@ public class PlayerController : MonoBehaviour
         Log,
     }
 
+    [Header("Skins Data")]
+    public List<SkinData> skinData;
+
     public delegate void MyDelegate(KeyCode key, Vector3 direction, MovementType movementType);
     MyDelegate myDelegate;
 
+    private void Start()
+    {
+        SkinManager.instance.SetPlayerRef(this);
+    }
+
     void Update()
     {
-        if (!GameManager.Instance.IsGameActive()) return;
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            PullRandomSkin();
+        }
+
+        if (!GameManager.instance.IsGameActive()) return;
 
         if (!isGrounded(mapLayer) && !isGrounded(logLayer) && isGrounded(waterLayer))
         {
-            GameManager.Instance.GameOver();
+            GameManager.instance.GameOver();
             //gameObject.SetActive(false);
         }
 
@@ -165,5 +180,89 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
     }
 
+    #region SKINS
+    public void SetActiveSkin()
+    {
+        bool firstActive = false;
+        foreach (SkinData skin in skinData)
+        {
+            skin.skin.SetActive(skin.isActive && !skin.isLocked && !firstActive);
+            if (skin.isActive) firstActive = true;
+        }
+    }
+
+    public void UnlockSkin(GameObject unlockedSkin)
+    {
+        foreach (SkinData skin in skinData)
+        {
+            if (skin.skin == unlockedSkin)
+            {
+                skin.isLocked = false;
+            }
+        }
+    }
+
+    public void SelectSkin(GameObject selectedSkin)
+    {
+        foreach (SkinData skin in skinData)
+        {
+            skin.skin.SetActive(skin.skin == selectedSkin);
+        }
+    }
+
+    public void PullRandomSkin()
+    {
+        GameObject skinToUnlock = null;
+        List<SkinData> lockedSkin = new();
+
+        // initialize lockedSkin
+        foreach (SkinData skin in skinData)
+        {
+            if (skin.isLocked) lockedSkin.Add(skin);
+        }
+
+        // normalize weight
+        print("prima: " + lockedSkin);
+        NormalizeWeights(lockedSkin);
+        print("dopo: " + lockedSkin);
+
+
+
+        // unlock selected skin
+        // UnlockSkin(skinToUnlock);
+    }
+
+    private void OnValidate()
+    {
+        NormalizeWeights(skinData);
+    }
+
+    private void NormalizeWeights(List<SkinData> skinData)
+    {
+        float total = skinData.Sum(e => e.weight);
+        if (total == 0) return;
+
+        for (int i = 0; i < skinData.Count; i++)
+        {
+            skinData[i].weight = Mathf.Round((skinData[i].weight / total) * 100f) / 100f; // Arrotonda a due cifre decimali
+        }
+
+        // Assicura che la somma sia esattamente 1 (aggiustando l'ultimo valore)
+        float adjustedTotal = skinData.Sum(e => e.weight);
+        if (adjustedTotal != 1f && skinData.Count > 0)
+        {
+            skinData[^1].weight += (1f - adjustedTotal);
+        }
+    }
+    #endregion
+
 }
 
+[System.Serializable]
+public class SkinData
+{
+    public GameObject skin;
+    public bool isActive;
+    public bool isLocked;
+    [Range(0f, 1f)] public float weight;
+}

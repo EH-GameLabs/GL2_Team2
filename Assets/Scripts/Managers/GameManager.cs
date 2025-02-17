@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour//Singleton<GameManager>
 {
-    private static GameManager instance;
-    public static GameManager Instance
+    private static GameManager Instance;
+    public static GameManager instance
     {
-        get { return instance; }
+        get { return Instance; }
     }
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
         DontDestroyOnLoad(this);
     }
@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
 
     private bool isGameActive;
     private UIManager.GameUI currentGameUI;
-    private GameObject playerObj;
 
     private int beers;
 
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
     {
         beers = 0;
         currentGameUI = UIManager.Instance.GetCurrentActiveUI();
-        playerObj = FindAnyObjectByType<PlayerController>().gameObject;
     }
 
     private void Update()
@@ -54,15 +52,6 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
     {
         isGameActive = false;
         FindAnyObjectByType<InGameUI>().GoToGameOver();
-    }
-
-    internal void ResetAll()
-    {
-        // reset map & positions
-        print("transform");
-        playerObj.transform.position = new Vector3(0.5f, 0f, -3.5f);
-        playerObj.transform.rotation = Quaternion.Euler(0, 180, 0);
-        //playerObj.SetActive(true);
     }
 
     // GETTERS & SETTERS

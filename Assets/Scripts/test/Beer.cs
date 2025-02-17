@@ -6,8 +6,8 @@ public class Beer : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.Instance.SetBeersAmount(GameManager.Instance.GetCurrentBeersAmount() + 1);
-            FindAnyObjectByType<InGameUI>()?.SetBeersAmount(GameManager.Instance.GetCurrentBeersAmount());
+            GameManager.instance.SetBeersAmount(GameManager.instance.GetCurrentBeersAmount() + 1);
+            FindAnyObjectByType<InGameUI>()?.SetBeersAmount(GameManager.instance.GetCurrentBeersAmount());
             Destroy(gameObject);
         }
     }

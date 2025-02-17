@@ -27,7 +27,7 @@ public class CarObstacle : MovingObstacle
     public void CallGameOver()
     {
         animator.SetBool("Dead", false);
-        GameManager.Instance.GameOver();
+        GameManager.instance.GameOver();
     }
 
     // crystal disk info

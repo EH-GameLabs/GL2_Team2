@@ -11,7 +11,7 @@ public class BeerUI : MonoBehaviour
     }
     private void SetUp()
     {
-        int a = GameManager.Instance.GetCurrentBeersAmount();
+        int a = GameManager.instance.GetCurrentBeersAmount();
         GetComponentInChildren<TextMeshProUGUI>().text = a.ToString();
     }
 }
