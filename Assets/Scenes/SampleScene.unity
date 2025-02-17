@@ -492,7 +492,7 @@ PrefabInstance:
     - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5
+      value: -3.48
       objectReference: {fileID: 0}
     - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
         type: 3}
@@ -818,20 +818,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapLength: 9
-  maxObstaclesPerLine: 4
+  maxObstaclesPerLine: 3
   elements:
   - element: {fileID: 638946499249988275, guid: a6c2fb02ea5c4df46acf387c3dfcd71f,
       type: 3}
-    weight: 0.88
+    weight: 0.18
   - element: {fileID: 638946499249988275, guid: 9bc72541157b03d47a2f14b3a36ec9b5,
       type: 3}
-    weight: 0.12
+    weight: 0.05
+  - element: {fileID: 638946499249988275, guid: dfc6edd9aa09a444ea75f56eaf88404b,
+      type: 3}
+    weight: 0.02
+  - element: {fileID: 638946499249988275, guid: c5264609bf345ea4dbc25fe0ca121f1f,
+      type: 3}
+    weight: 0.75
   obstaclesPrefab:
   - {fileID: 3993773330842725684, guid: f24b0aedbbc28474cad54dc750fcec39, type: 3}
   coin:
     element: {fileID: 7082181682048220480, guid: c0fc8734a80c2d24fa755d5b273e1a4d,
       type: 3}
-    weight: 0.05
+    weight: 0.015
   mapContainer: {fileID: 7376880270262223880}
 --- !u!4 &1068180787
 Transform:
@@ -1250,6 +1256,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672364873313481482, guid: 637ab020e2ded8e48968b16d1d563ce5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

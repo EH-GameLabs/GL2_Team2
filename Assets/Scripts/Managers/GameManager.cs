@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
         else
         {
             instance = this;
-        }DontDestroyOnLoad(this);
+        }
+        DontDestroyOnLoad(this);
     }
 
     [SerializeField] private float currentSpeed;
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
             currentGameUI = UIManager.Instance.GetCurrentActiveUI();
         }
 
-        if (isGameActive && currentGameUI == UIManager.GameUI.InGame && Input.GetKeyDown(KeyCode.Escape))
+        if (isGameActive && currentGameUI == UIManager.GameUI.InGame && Input.GetKeyDown(KeyCode.P))
         {
             isGameActive = false;
             UIManager.Instance.ShowUI(UIManager.GameUI.Pause);
@@ -51,7 +52,6 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
 
     public void GameOver()
     {
-        Debug.Log("Hai perso!");
         isGameActive = false;
         FindAnyObjectByType<InGameUI>().GoToGameOver();
     }

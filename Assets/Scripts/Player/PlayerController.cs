@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
         if (!isMoving && isGrounded(mapLayer))
         {
             currentMovType = MovementType.Normal;
+            CheckPosition();
             RotateWithAnimation(MovementType.Normal);
         }
         if (isGrounded(logLayer))
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded(LayerMask layer) => Physics.Raycast(transform.position + rayOffset, Vector3.down, out hit, 1f, layer);
 
+    #region MOVE
     private void RotateWithAnimation(MovementType movementType)
     {
         if (movementType == MovementType.Log)
@@ -123,7 +125,7 @@ public class PlayerController : MonoBehaviour
         targetPos = startPos;
         if (movementType == MovementType.Log && (direction == Vector3.forward || direction == Vector3.back))
         {
-            targetPos -= new Vector3(targetPos.x % 1f - 0.5f, 0, -direction.z);
+            targetPos -= new Vector3(0, 0, -direction.z);
         }
         else
         {
@@ -154,5 +156,14 @@ public class PlayerController : MonoBehaviour
 
         return true;
     }
+    #endregion
+
+    private void CheckPosition()
+    {
+        Vector3 pos = transform.position;
+        pos.x = Mathf.FloorToInt(pos.x) + 0.5f;
+        transform.position = pos;
+    }
+
 }
 

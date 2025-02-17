@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RiverLine : MonoBehaviour
+public class ObstacleLine : MonoBehaviour
 {
     [Header("River Info")]
     [SerializeField] private int numObstacles = 3;
-    [SerializeField] private float obstacleSpeed = 1.0f;
+    [SerializeField] private float obstacleMaxSpeed;
     [SerializeField] private bool leftToRight;
     private Vector3 horizontalDir;
+    private float obstacleSpeed = 1.0f;
 
     [Header("Obstacles")]
-    public List<Transform> obstacles = new List<Transform>();
-    [SerializeField] private GameObject logPrefab;
+    [SerializeField] private GameObject obstaclePrefab;
+    private List<Transform> obstacles = new List<Transform>();
 
     [Header("Spawn/Despawn")]
     [SerializeField] private GameObject point1;
@@ -23,16 +24,18 @@ public class RiverLine : MonoBehaviour
         obstacles.Clear();
         for (int i = 0; i < numObstacles; i++)
         {
-            float size = logPrefab.GetComponent<BoxCollider>().size.x;
+            float size = obstaclePrefab.GetComponent<BoxCollider>().size.x;
             float timer = Random.Range(1 + i, numObstacles * 2 * i) + size * i;
             StartCoroutine(SpawnAtRandomInterval(timer));
         }
         leftToRight = Random.Range(0, 2) == 0 ? false : true;
+        horizontalDir = leftToRight ? Vector3.right : Vector3.left;
+
+        obstacleSpeed = Random.Range(1, obstacleMaxSpeed);
     }
 
     private void Update()
     {
-        horizontalDir = leftToRight ? Vector3.right : Vector3.left;
         foreach (Transform t in obstacles)
         {
             t.Translate(obstacleSpeed * Time.deltaTime * horizontalDir);
@@ -43,7 +46,7 @@ public class RiverLine : MonoBehaviour
     private IEnumerator SpawnAtRandomInterval(float timer)
     {
         yield return new WaitForSeconds(timer);
-        GameObject g = Instantiate(logPrefab, leftToRight ? point1.transform.position : point2.transform.position, Quaternion.identity, transform);
+        GameObject g = Instantiate(obstaclePrefab, leftToRight ? point1.transform.position : point2.transform.position, Quaternion.identity, transform);
         obstacles.Add(g.transform);
     }
 
