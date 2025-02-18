@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -31,10 +30,20 @@ public class PlayerController : MonoBehaviour
     }
 
     [Header("Skins Data")]
-    public List<SkinData> skinData;
+    public SkinDataSO skinData;
+    public List<GameObject> skins;
 
     public delegate void MyDelegate(KeyCode key, Vector3 direction, MovementType movementType);
     MyDelegate myDelegate;
+
+    // Singleton
+    public static PlayerController instance { get; set; }
+
+    private void Awake()
+    {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
 
     private void Start()
     {
@@ -181,19 +190,34 @@ public class PlayerController : MonoBehaviour
     }
 
     #region SKINS
+    /// <summary>
+    /// Set the current enable skin active and disable all the others
+    /// </summary>
     public void SetActiveSkin()
     {
-        bool firstActive = false;
-        foreach (SkinData skin in skinData)
+        foreach (var skin in skins)
         {
-            skin.skin.SetActive(skin.isActive && !skin.isLocked && !firstActive);
-            if (skin.isActive) firstActive = true;
+            if (skin != null)
+                skin.SetActive(false);
+        }
+
+        for (int i = 0; i < skinData.Skins.Count; i++)
+        {
+            if (skinData.Skins[i].isActive && !skinData.Skins[i].isLocked)
+            {
+                if (i < skins.Count && skins[i] != null)
+                {
+                    skins[i].SetActive(true);
+                }
+                break;
+            }
         }
     }
 
+
     public void UnlockSkin(GameObject unlockedSkin)
     {
-        foreach (SkinData skin in skinData)
+        foreach (SkinData skin in skinData.Skins)
         {
             if (skin.skin == unlockedSkin)
             {
@@ -202,67 +226,62 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Select the new active skin end enable it
+    /// </summary>
+    /// <param name="selectedSkin"></param>
     public void SelectSkin(GameObject selectedSkin)
     {
-        foreach (SkinData skin in skinData)
+        foreach (SkinData skin in skinData.Skins)
         {
             skin.skin.SetActive(skin.skin == selectedSkin);
         }
+        SetActiveSkin();
     }
 
     public void PullRandomSkin()
     {
-        GameObject skinToUnlock = null;
+        //GameObject skinToUnlock = null;
         List<SkinData> lockedSkin = new();
 
         // initialize lockedSkin
-        foreach (SkinData skin in skinData)
+        foreach (SkinData skin in skinData.Skins)
         {
             if (skin.isLocked) lockedSkin.Add(skin);
         }
 
         // normalize weight
         print("prima: " + lockedSkin);
-        NormalizeWeights(lockedSkin);
-        print("dopo: " + lockedSkin);
-
+        //NormalizeWeights(lockedSkin);
+        //print("dopo: " + lockedSkin);
 
 
         // unlock selected skin
-        // UnlockSkin(skinToUnlock);
+        //UnlockSkin(skinToUnlock);
     }
 
     private void OnValidate()
     {
-        NormalizeWeights(skinData);
+        //NormalizeWeights(skinData.Skins);
     }
 
-    private void NormalizeWeights(List<SkinData> skinData)
-    {
-        float total = skinData.Sum(e => e.weight);
-        if (total == 0) return;
+    // NON SERVE PIU'
+    //private void NormalizeWeights(List<SkinData> skinData)
+    //{
+    //    float total = skinData.Sum(e => e.weight);
+    //    if (total == 0) return;
 
-        for (int i = 0; i < skinData.Count; i++)
-        {
-            skinData[i].weight = Mathf.Round((skinData[i].weight / total) * 100f) / 100f; // Arrotonda a due cifre decimali
-        }
+    //    for (int i = 0; i < skinData.Count; i++)
+    //    {
+    //        skinData[i].weight = Mathf.Round((skinData[i].weight / total) * 100f) / 100f; // Arrotonda a due cifre decimali
+    //    }
 
-        // Assicura che la somma sia esattamente 1 (aggiustando l'ultimo valore)
-        float adjustedTotal = skinData.Sum(e => e.weight);
-        if (adjustedTotal != 1f && skinData.Count > 0)
-        {
-            skinData[^1].weight += (1f - adjustedTotal);
-        }
-    }
+    //    // Assicura che la somma sia esattamente 1 (aggiustando l'ultimo valore)
+    //    float adjustedTotal = skinData.Sum(e => e.weight);
+    //    if (adjustedTotal != 1f && skinData.Count > 0)
+    //    {
+    //        skinData[^1].weight += (1f - adjustedTotal);
+    //    }
+    //}
     #endregion
-
-}
-
-[System.Serializable]
-public class SkinData
-{
-    public GameObject skin;
-    public bool isActive;
-    public bool isLocked;
-    [Range(0f, 1f)] public float weight;
 }

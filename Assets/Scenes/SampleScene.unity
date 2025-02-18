@@ -479,11 +479,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1746715740056736535, guid: a69b1769791391148979c0fc97510dfc,
-        type: 3}
-      propertyPath: skinData.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4084528801376057112, guid: a69b1769791391148979c0fc97510dfc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -742,7 +737,6 @@ Transform:
   m_Children:
   - {fileID: 332416754}
   - {fileID: 1068180787}
-  - {fileID: 1704945958}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1052285114
@@ -1305,6 +1299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1704945958}
+  - component: {fileID: 1704945959}
   m_Layer: 0
   m_Name: Skin Manager
   m_TagString: Untagged
@@ -1320,13 +1315,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704945957}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1005558881}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1704945959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704945957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23031563f3a7ee4ab532891f80a7c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinData: {fileID: 11400000, guid: 48c2ed28e7ea5a643b2f6af02544acaa, type: 2}
 --- !u!1 &1765745424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,6 +1469,7 @@ SceneRoots:
   - {fileID: 1765745425}
   - {fileID: 1052285115}
   - {fileID: 1474055269}
+  - {fileID: 1704945958}
   - {fileID: 1005558881}
   - {fileID: 362399964}
   - {fileID: 7376880270262223879}

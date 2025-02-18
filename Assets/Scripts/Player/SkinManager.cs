@@ -22,6 +22,7 @@ public class SkinManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    [SerializeField] private SkinDataSO SkinData;
     private PlayerController player;
     private const string playerSkinsFile = "SkinFile";
 
@@ -29,7 +30,7 @@ public class SkinManager : MonoBehaviour
     {
         try
         {
-            string json = JsonUtility.ToJson(player.skinData);
+            string json = JsonUtility.ToJson(SkinData);
             File.WriteAllText(Application.persistentDataPath + "/" + playerSkinsFile + ".json", json);
         }
         catch (System.Exception e)
@@ -44,10 +45,26 @@ public class SkinManager : MonoBehaviour
         {
             string path = Application.persistentDataPath + "/" + playerSkinsFile + ".json";
 
+            if (!SkinData)
+            {
+                Debug.LogError("SkinData è NULL prima della sovrascrittura! Assicurati di assegnarlo.");
+                return;
+            }
+
             if (File.Exists(path))
             {
-                JsonUtility.FromJsonOverwrite(File.ReadAllText(path), player.skinData);
-                player.SetActiveSkin();
+                string json = File.ReadAllText(path);
+
+                JsonUtility.FromJsonOverwrite(json, SkinData);
+
+                if (player != null)
+                {
+                    player.SetActiveSkin();
+                }
+                else
+                {
+                    Debug.LogWarning("player è null, impossibile aggiornare la skin.");
+                }
             }
             else
             {
@@ -63,6 +80,7 @@ public class SkinManager : MonoBehaviour
     public void SetPlayerRef(PlayerController playerRef)
     {
         this.player = playerRef;
+        Salva();
         Carica();
     }
 }
