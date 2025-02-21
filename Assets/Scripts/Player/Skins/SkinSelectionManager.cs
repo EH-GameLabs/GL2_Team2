@@ -14,7 +14,7 @@ public class SkinSelectionManager : MonoBehaviour
     [SerializeField] private SkinDataSO skins;
     [SerializeField] private float speedRotation;
 
-
+    private LockedSkin lockedSkin;
     private bool isTurning;
 
     public static SkinSelectionManager instance { get; set; }
@@ -27,7 +27,30 @@ public class SkinSelectionManager : MonoBehaviour
 
     private void Start()
     {
+        lockedSkin = FindAnyObjectByType<LockedSkin>();
         InitializeOthers();
+        InitializeAll();
+    }
+
+    private void InitializeAll()
+    {
+        Transform skin = null;
+        bool locked = false;
+
+        // left
+        skin = leftSkinSlot.transform.GetChild(0);
+        locked = DisableIfLocked(skin);
+        lockedSkin.ActiveLeft(locked);
+
+        // main
+        skin = mainSkinSlot.transform.GetChild(0);
+        locked = DisableIfLocked(skin);
+        lockedSkin.ActiveMain(locked);
+
+        // right
+        skin = rightSkinSlot.transform.GetChild(0);
+        locked = DisableIfLocked(skin);
+        lockedSkin.ActiveRight(locked);
     }
 
     private void InitializeOthers()
@@ -78,7 +101,10 @@ public class SkinSelectionManager : MonoBehaviour
 
     public IEnumerator TranslateSkins(Transform skin, Transform endPos)
     {
-        DisableIfLocked(skin);
+        bool locked = DisableIfLocked(skin);
+
+        skin.SetParent(endPos);
+        if (endPos == BackSkinSlot.transform) skin.gameObject.SetActive(false);
 
         Vector3 startPos = skin.position;
         float t = 0f;
@@ -91,18 +117,26 @@ public class SkinSelectionManager : MonoBehaviour
             yield return null;
         }
 
-        skin.SetParent(endPos);
-        skin.position = endPos.position;
-        if (endPos == BackSkinSlot.transform) skin.gameObject.SetActive(false);
-        if (endPos == rightSkinSlot.transform || endPos == leftSkinSlot)
+        if (endPos == rightSkinSlot.transform)
         {
+            lockedSkin.ActiveRight(locked);
             skin.transform.rotation = endPos.rotation;
         }
+        else if (endPos == leftSkinSlot.transform)
+        {
+            lockedSkin.ActiveLeft(locked);
+            skin.transform.rotation = endPos.rotation;
+        }
+        else if (endPos == mainSkinSlot.transform)
+        {
+            lockedSkin.ActiveMain(locked);
+        }
+        skin.position = endPos.position;
 
         isTurning = false;
     }
 
-    private void DisableIfLocked(Transform skin)
+    private bool DisableIfLocked(Transform skin)
     {
         foreach (var _skin in skins.Skins)
         {
@@ -112,6 +146,7 @@ public class SkinSelectionManager : MonoBehaviour
                 {
                     foreach (Transform child in skin.transform)
                         child.gameObject.SetActive(false);
+                    return true;
                 }
                 else
                 {
@@ -120,21 +155,34 @@ public class SkinSelectionManager : MonoBehaviour
                 }
             }
         }
+        return false;
     }
 
     public void SelectActiveSkin()
     {
+        bool changed = false;
+        SkinData activeSkin = null;
+
         foreach (var skin in skins.Skins)
         {
+            if (skin.isActive) activeSkin = skin;
             if (skin.skin.GetComponent<SkinTypeSelector>().SkinType == mainSkinSlot.GetComponentInChildren<SkinTypeSelector>().SkinType)
             {
-                skin.isActive = true;
+                if (!skin.isLocked)
+                {
+                    skin.isActive = true;
+                    changed = true;
+                }
+                else
+                    Debug.LogWarning("This skin is locked");
             }
             else
             {
                 skin.isActive = false;
             }
         }
+
+        if (!changed) activeSkin.isActive = true;
     }
 
     public void ExitScreen()
