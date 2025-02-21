@@ -162,7 +162,8 @@ public class MapManager : MonoBehaviour
         {
             for (int i = 0; i < nextLine.Count; i++)
             {
-                if (!nextLine[i]) Instantiate(obstaclesPrefab[0], spawnPoint + new Vector3(-3.5f + i, 0.5f, 0), Quaternion.identity, lineTmp.transform);
+                GameObject _tmp = obstaclesPrefab[Random.Range(0, obstaclesPrefab.Count)];
+                if (!nextLine[i]) Instantiate(_tmp, spawnPoint + new Vector3(-3.5f + i, 0, 0), Quaternion.identity, lineTmp.transform);
             }
             foreach (var index in pathToRemoveIndexes)
             {

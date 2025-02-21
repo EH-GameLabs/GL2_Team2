@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour, IGameUI
 {
@@ -20,5 +21,10 @@ public class MainMenuUI : MonoBehaviour, IGameUI
     {
         UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
         GameManager.instance.SetIsGameActive(true);
+    }
+
+    public void SelectionSkin()
+    {
+        SceneManager.LoadScene("SelectSkinScene", LoadSceneMode.Single);
     }
 }

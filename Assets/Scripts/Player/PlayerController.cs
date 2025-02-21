@@ -259,29 +259,5 @@ public class PlayerController : MonoBehaviour
         // unlock selected skin
         //UnlockSkin(skinToUnlock);
     }
-
-    private void OnValidate()
-    {
-        //NormalizeWeights(skinData.Skins);
-    }
-
-    // NON SERVE PIU'
-    //private void NormalizeWeights(List<SkinData> skinData)
-    //{
-    //    float total = skinData.Sum(e => e.weight);
-    //    if (total == 0) return;
-
-    //    for (int i = 0; i < skinData.Count; i++)
-    //    {
-    //        skinData[i].weight = Mathf.Round((skinData[i].weight / total) * 100f) / 100f; // Arrotonda a due cifre decimali
-    //    }
-
-    //    // Assicura che la somma sia esattamente 1 (aggiustando l'ultimo valore)
-    //    float adjustedTotal = skinData.Sum(e => e.weight);
-    //    if (adjustedTotal != 1f && skinData.Count > 0)
-    //    {
-    //        skinData[^1].weight += (1f - adjustedTotal);
-    //    }
-    //}
     #endregion
 }

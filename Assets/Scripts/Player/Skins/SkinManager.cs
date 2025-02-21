@@ -3,21 +3,20 @@ using UnityEngine;
 
 public class SkinManager : MonoBehaviour
 {
-    private static SkinManager Instance;
     public static SkinManager instance
     {
-        get { return Instance; }
+        get; set;
     }
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            Instance = this;
+            instance = this;
         }
         DontDestroyOnLoad(this);
     }
@@ -82,5 +81,10 @@ public class SkinManager : MonoBehaviour
         this.player = playerRef;
         Salva();
         Carica();
+    }
+
+    public void PullNewSkin()
+    {
+        // TODO
     }
 }

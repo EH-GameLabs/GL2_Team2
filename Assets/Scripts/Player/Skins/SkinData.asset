@@ -20,5 +20,11 @@ MonoBehaviour:
     isActive: 0
     isLocked: 1
   - skin: {fileID: 5531026322541628757, guid: 1893a6969c143c243ad1c50a24cbb1a6, type: 3}
+    isActive: 0
+    isLocked: 1
+  - skin: {fileID: 2030100240024878367, guid: ee8a2edfe3e3081418c15be73839dd8a, type: 3}
+    isActive: 0
+    isLocked: 1
+  - skin: {fileID: 5531026322541628757, guid: 23e104cad34ad654bbdd2024108c68ed, type: 3}
     isActive: 1
     isLocked: 0
