@@ -247,7 +247,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.42752692, y: 0.16227569, z: 0.019999996}
+  m_Size: {x: 0.42752692, y: 0.16227569, z: 0.08}
   m_Center: {x: -0.20376341, y: 0.04051168, z: 1.79908e-17}
 --- !u!1 &319007028
 GameObject:
@@ -709,7 +709,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.42752692, y: 0.16227569, z: 0.019999996}
+  m_Size: {x: 0.42752692, y: 0.16227569, z: 0.05}
   m_Center: {x: -0.20376348, y: 0.04051168, z: 1.79908e-17}
 --- !u!1 &824163247 stripped
 GameObject:
@@ -904,23 +904,25 @@ MonoBehaviour:
   elements:
   - element: {fileID: 638946499249988275, guid: a6c2fb02ea5c4df46acf387c3dfcd71f,
       type: 3}
-    weight: 0.5
+    weight: 0.52
   - element: {fileID: 638946499249988275, guid: 9bc72541157b03d47a2f14b3a36ec9b5,
       type: 3}
     weight: 0.1
   - element: {fileID: 638946499249988275, guid: dfc6edd9aa09a444ea75f56eaf88404b,
       type: 3}
-    weight: 0.39
+    weight: 0.36
   - element: {fileID: 638946499249988275, guid: c5264609bf345ea4dbc25fe0ca121f1f,
       type: 3}
-    weight: 0.01
+    weight: 0.02
   obstaclesPrefab:
   - {fileID: 3993773330842725684, guid: 71e48bcaea9e4464996d799e3774d0c7, type: 3}
   - {fileID: 3993773330842725684, guid: 40569c759b727f84799e4e06e5aff5a9, type: 3}
+  - {fileID: 3993773330842725684, guid: 4d39d8a2c8b93f44a9bd9809f8506387, type: 3}
+  - {fileID: 3993773330842725684, guid: 8428da17a00dfcb4c9614f26e96ccef9, type: 3}
   coin:
     element: {fileID: 7082181682048220480, guid: c0fc8734a80c2d24fa755d5b273e1a4d,
       type: 3}
-    weight: 0.015
+    weight: 0.02
   mapContainer: {fileID: 7376880270262223880}
 --- !u!4 &1068180787
 Transform:
@@ -1520,6 +1522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7203476142431032181, guid: 9c39105c1f7ab224f84035dfb1d2ed8e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7546964036817652175, guid: 9c39105c1f7ab224f84035dfb1d2ed8e,
         type: 3}

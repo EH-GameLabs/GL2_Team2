@@ -9,7 +9,8 @@ public class RiverDeathPoint : MonoBehaviour
             print("fiume morte");
             // Animazione
             //animator.SetBool("Dead", true);
-            GameManager.instance.GameOver();
+            if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
+                GameManager.instance.GameOver();
         }
     }
 }
