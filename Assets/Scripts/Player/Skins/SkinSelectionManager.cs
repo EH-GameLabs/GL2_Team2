@@ -11,7 +11,7 @@ public class SkinSelectionManager : MonoBehaviour
     [SerializeField] private GameObject BackSkinSlot;
     [SerializeField] private List<GameObject> others = new List<GameObject>();
 
-    [SerializeField] private SkinDataSO skins;
+    [SerializeField] private PlayerDataSO skins;
     [SerializeField] private float speedRotation;
 
     private LockedSkin lockedSkin;

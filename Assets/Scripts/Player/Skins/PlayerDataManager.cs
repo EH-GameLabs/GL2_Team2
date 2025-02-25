@@ -1,9 +1,9 @@
 using System.IO;
 using UnityEngine;
 
-public class SkinManager : MonoBehaviour
+public class PlayerDataManager : MonoBehaviour
 {
-    public static SkinManager instance
+    public static PlayerDataManager instance
     {
         get; set;
     }
@@ -21,11 +21,13 @@ public class SkinManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    [SerializeField] private SkinDataSO SkinData;
+    public PlayerDataSO SkinData;
+
+
     private PlayerController player;
     private const string playerSkinsFile = "SkinFile";
 
-    public void Salva()
+    public void SaveData()
     {
         try
         {
@@ -38,7 +40,7 @@ public class SkinManager : MonoBehaviour
         }
     }
 
-    public void Carica()
+    public void LoadData()
     {
         try
         {
@@ -59,6 +61,8 @@ public class SkinManager : MonoBehaviour
                 if (player != null)
                 {
                     player.SetActiveSkin();
+                    GameManager.instance.SetBeersAmount(SkinData.coins);
+                    FindAnyObjectByType<MainMenuUI>().coins.text = SkinData.coins.ToString();
                 }
                 else
                 {
@@ -79,8 +83,8 @@ public class SkinManager : MonoBehaviour
     public void SetPlayerRef(PlayerController playerRef)
     {
         this.player = playerRef;
-        Salva();
-        Carica();
+        SaveData();
+        LoadData();
     }
 
     public void PullNewSkin()

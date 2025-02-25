@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
     private UIManager.GameUI currentGameUI;
 
     private int beers;
+    private int score;
 
     private void Start()
     {
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
 
     public void GameOver()
     {
+        PlayerDataManager.instance.SaveData();
         isGameActive = false;
         FindAnyObjectByType<InGameUI>().GoToGameOver();
     }
@@ -60,4 +62,6 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
     public float GetCurrentSpeed() { return currentSpeed; }
     public void SetBeersAmount(int amount) { beers = amount; }
     public int GetCurrentBeersAmount() { return beers; }
+    public void SetScore(int score) { this.score = score; }
+    public int GetScore() { return score; }
 }

@@ -8,7 +8,7 @@ public class SkinTypeSelector : MonoBehaviour
 public enum SkinType
 {
     Nano,
-    Goblin,
+    Cavaliere,
     Mago,
     Bardo,
     Unicorno,

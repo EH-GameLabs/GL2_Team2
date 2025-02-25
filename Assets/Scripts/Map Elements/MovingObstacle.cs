@@ -6,7 +6,6 @@ public class MovingObstacle : MonoBehaviour
     {
         if (other.CompareTag(Tags.Player))
         {
-            print("macchina morte");
             // Animazione
             //animator.SetBool("Dead", true);
             GameManager.instance.GameOver();

@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class InGameUI : MonoBehaviour, IGameUI
 {
@@ -18,6 +18,7 @@ public class InGameUI : MonoBehaviour, IGameUI
     #endregion
 
     [SerializeField] private GameObject beersText;
+    [SerializeField] private TextMeshProUGUI score;
 
     public void GoToPause()
     {
@@ -30,7 +31,7 @@ public class InGameUI : MonoBehaviour, IGameUI
         UIManager.Instance.ShowUI(UIManager.GameUI.GameOver);
     }
 
-    public void SetBeersAmount(int amount) 
+    public void SetBeersAmount(int amount)
     {
         beersText.GetComponentInChildren<TextMeshProUGUI>().text = amount.ToString();
     }

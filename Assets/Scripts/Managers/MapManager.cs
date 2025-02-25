@@ -178,7 +178,7 @@ public class MapManager : MonoBehaviour
                 bool hasToSpawn = Random.Range(0f, 1f) < coin.weight ? true : false;
                 if (hasToSpawn)
                 {
-                    Instantiate(coin.element, spawnPoint + new Vector3(-3.5f + index, 0.5f, 0), Quaternion.identity, lineTmp.transform);
+                    Instantiate(coin.element, spawnPoint + new Vector3(-3.5f + index, 0, 0), Quaternion.identity, lineTmp.transform);
                 }
             }
         }

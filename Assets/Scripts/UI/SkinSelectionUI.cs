@@ -28,8 +28,8 @@ public class SkinSelectionUI : MonoBehaviour, IGameUI
         UIManager.Instance.ShowUI(UIManager.GameUI.MainMenu);
     }
 
-    public void SetSkinActive()
-    {
-        PlayerController.instance.SelectSkin(currentSkin);
-    }
+    //public void SetSkinActive()
+    //{
+    //    PlayerController.instance.SelectSkin(currentSkin);
+    //}
 }

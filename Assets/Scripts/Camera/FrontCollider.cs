@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class FrontCollider : MonoBehaviour
 {
-    [SerializeField] private CameraMovement CameraMovement;
+    [SerializeField] private CameraMovement cameraMovement;
     [SerializeField] private float addSpeed = 1.5f;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Tags.Player))
         {
-            CameraMovement.IncreaseSpeed(addSpeed);
+            cameraMovement.IncreaseSpeed(addSpeed);
         }
     }
 
@@ -17,7 +17,7 @@ public class FrontCollider : MonoBehaviour
     {
         if (other.CompareTag(Tags.Player))
         {
-            CameraMovement.DecreaseSpeed();
+            cameraMovement.DecreaseSpeed();
         }
     }
 }

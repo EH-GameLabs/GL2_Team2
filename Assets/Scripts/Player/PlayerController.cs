@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPos;
     private Vector3 rayOffset = new Vector3(0, 0.5f, 0);
     private RaycastHit hit;
+
+    // score
+    private int playerScore;
+    private Score score;
+
     public enum MovementType
     {
         Normal,
@@ -30,7 +35,7 @@ public class PlayerController : MonoBehaviour
     }
 
     [Header("Skins Data")]
-    public SkinDataSO skinData;
+    public PlayerDataSO skinData;
     public List<GameObject> skins;
 
     public delegate void MyDelegate(KeyCode key, Vector3 direction, MovementType movementType);
@@ -47,17 +52,14 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        SkinManager.instance.SetPlayerRef(this);
+        PlayerDataManager.instance.SetPlayerRef(this);
+        playerScore = -3;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            PullRandomSkin();
-        }
-
         if (!GameManager.instance.IsGameActive()) return;
+        score = FindAnyObjectByType<Score>();
 
         if (!isGrounded(mapLayer) && !isGrounded(logLayer) && isGrounded(waterLayer))
         {
@@ -133,6 +135,16 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyUp(key))
         {
+            if (key == KeyCode.W)
+            {
+                playerScore++;
+                if (score.GetScore() < playerScore)
+                    score.SetScore(playerScore);
+            }
+            if (key == KeyCode.S)
+            {
+                playerScore--;
+            }
             StartCoroutine(MovePlayer(direction, movementType));
             myDelegate = null;
         }
@@ -214,18 +226,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    public void UnlockSkin(GameObject unlockedSkin)
-    {
-        foreach (SkinData skin in skinData.Skins)
-        {
-            if (skin.skin == unlockedSkin)
-            {
-                skin.isLocked = false;
-            }
-        }
-    }
-
     /// <summary>
     /// Select the new active skin end enable it
     /// </summary>
@@ -239,9 +239,9 @@ public class PlayerController : MonoBehaviour
         SetActiveSkin();
     }
 
-    public void PullRandomSkin()
+    public void PullRandomSkin(int coinsToPull)
     {
-        //GameObject skinToUnlock = null;
+        GameObject skinToUnlock = null;
         List<SkinData> lockedSkin = new();
 
         // initialize lockedSkin
@@ -250,14 +250,33 @@ public class PlayerController : MonoBehaviour
             if (skin.isLocked) lockedSkin.Add(skin);
         }
 
-        // normalize weight
-        print("prima: " + lockedSkin);
-        //NormalizeWeights(lockedSkin);
-        //print("dopo: " + lockedSkin);
+        if (lockedSkin.Count > 0)
+        {
+            skinData.coins -= coinsToPull;
+            FindAnyObjectByType<MainMenuUI>().SetCoins(skinData.coins.ToString());
 
+            skinToUnlock = lockedSkin[Random.Range(0, lockedSkin.Count)].skin;
+            print("skin unlocked: " + skinToUnlock);
 
-        // unlock selected skin
-        //UnlockSkin(skinToUnlock);
+            // unlock selected skin
+            UnlockSkin(skinToUnlock);
+            PlayerDataManager.instance.SaveData();
+        }
+        else
+        {
+            Debug.Log("You have collected all the skins available!");
+        }
+    }
+
+    public void UnlockSkin(GameObject unlockedSkin)
+    {
+        foreach (SkinData skin in skinData.Skins)
+        {
+            if (skin.skin == unlockedSkin)
+            {
+                skin.isLocked = false;
+            }
+        }
     }
     #endregion
 }

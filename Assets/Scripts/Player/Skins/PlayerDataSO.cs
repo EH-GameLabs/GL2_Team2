@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SkinData", menuName = "ScriptableObject/SkinData")]
-public class SkinDataSO : ScriptableObject
+[CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObject/PlayerData")]
+public class PlayerDataSO : ScriptableObject
 {
+    public int bestScore;
+    public int coins;
     public List<SkinData> Skins;
 }
 

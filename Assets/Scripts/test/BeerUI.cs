@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class BeerUI : MonoBehaviour
 {
@@ -15,3 +15,4 @@ public class BeerUI : MonoBehaviour
         GetComponentInChildren<TextMeshProUGUI>().text = a.ToString();
     }
 }
+

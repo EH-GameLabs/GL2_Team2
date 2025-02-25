@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f5ba8fccb6ae447ae478bfbdbe4e06, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  bestScore: 0
+  coins: 5
+  Skins:
+  - skin: {fileID: 5531026322541628757, guid: 23e104cad34ad654bbdd2024108c68ed, type: 3}
+    isActive: 1
+    isLocked: 0
+  - skin: {fileID: 2030100240024878367, guid: 6d81b28b89096b54db46c5ad823fc2c7, type: 3}
+    isActive: 0
+    isLocked: 1
+  - skin: {fileID: 5531026322541628757, guid: e3178b8e66517224cb00fa849d61cdb4, type: 3}
+    isActive: 0
+    isLocked: 1
+  - skin: {fileID: 2030100240024878367, guid: 5383ded758c9a254fa13c5c8b88816ce, type: 3}
+    isActive: 0
+    isLocked: 1
+  - skin: {fileID: 2030100240024878367, guid: ee8a2edfe3e3081418c15be73839dd8a, type: 3}
+    isActive: 0
+    isLocked: 1
