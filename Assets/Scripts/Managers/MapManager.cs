@@ -38,6 +38,7 @@ public class MapManager : MonoBehaviour
     [Header("Map Prefabs")]
     [SerializeField] private List<WeightedElement> elements = new List<WeightedElement>();
     [SerializeField] private List<GameObject> obstaclesPrefab;
+    [SerializeField] private GameObject spongePrefab;
     [SerializeField] private WeightedElement coin;
 
     [Header("Container")]
@@ -88,12 +89,12 @@ public class MapManager : MonoBehaviour
     public void SpawnLine(GameObject line)
     {
         lineTmp = Instantiate(line, spawnPoint, Quaternion.identity, mapContainer);
-        if (line.name.Equals("BaseMapLine"))
+        if (line.name.Equals("BaseMapLine") || line.name.Equals("RiverSpongeLine"))
         {
             do
             {
-                RandomizeLine();
-                CheckLine();
+                RandomizeLine(line.name);
+                CheckLine(line.name);
             } while (!success);
             for (int i = 0; i < nextLine.Count; i++)
             {
@@ -112,10 +113,19 @@ public class MapManager : MonoBehaviour
         spawnPoint.z += 1;
     }
 
-    void RandomizeLine()
+    void RandomizeLine(string line)
     {
+        int obstaclesNumber;
         success = false;
-        int obstaclesNumber = Random.Range(0, maxObstaclesPerLine);
+        if (line.Equals("BaseMapLine"))
+        {
+            obstaclesNumber = Random.Range(0, maxObstaclesPerLine);
+        }
+        else
+        {
+            obstaclesNumber = Random.Range(5, 8);
+        }
+        
         //print("N. " + obstaclesNumber);
         List<int> chosenIndexes = new();
         for (int i = 0; i < obstaclesNumber; i++)
@@ -135,7 +145,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    void CheckLine()
+    void CheckLine(string line)
     {
         tempPathIndexes = new();
         pathToRemoveIndexes = new();
@@ -155,8 +165,16 @@ public class MapManager : MonoBehaviour
         {
             for (int i = 0; i < nextLine.Count; i++)
             {
-                GameObject _tmp = obstaclesPrefab[Random.Range(0, obstaclesPrefab.Count)];
-                if (!nextLine[i]) Instantiate(_tmp, spawnPoint + new Vector3(-3.5f + i, 0, 0), Quaternion.identity, lineTmp.transform);
+                if (line.Equals("BaseMapLine"))
+                {
+                    GameObject _tmp = obstaclesPrefab[Random.Range(0, obstaclesPrefab.Count)];
+                    if (!nextLine[i]) Instantiate(_tmp, spawnPoint + new Vector3(-3.5f + i, 0, 0), Quaternion.identity, lineTmp.transform);
+                }
+                else 
+                {
+                    if (nextLine[i]) Instantiate(spongePrefab, spawnPoint + new Vector3(-3.5f + i, 0, 0), Quaternion.identity, lineTmp.transform);
+                }
+                
             }
             foreach (var index in pathToRemoveIndexes)
             {

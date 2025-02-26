@@ -29,6 +29,7 @@ public class TrainLine : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.instance.IsGameActive()) return;
         if (currentTrain == null) return;
 
         currentTrain.transform.Translate(obstacleSpeed * Time.deltaTime * Vector3.right);

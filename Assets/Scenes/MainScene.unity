@@ -909,21 +909,26 @@ MonoBehaviour:
   elements:
   - element: {fileID: 638946499249988275, guid: a6c2fb02ea5c4df46acf387c3dfcd71f,
       type: 3}
-    weight: 0.52
+    weight: 0.43
   - element: {fileID: 638946499249988275, guid: 9bc72541157b03d47a2f14b3a36ec9b5,
       type: 3}
-    weight: 0.1
+    weight: 0.08
   - element: {fileID: 638946499249988275, guid: dfc6edd9aa09a444ea75f56eaf88404b,
       type: 3}
-    weight: 0.36
+    weight: 0.3
   - element: {fileID: 638946499249988275, guid: c5264609bf345ea4dbc25fe0ca121f1f,
       type: 3}
     weight: 0.02
+  - element: {fileID: 638946499249988275, guid: f2e1efd63fe0dbb4d8878ec00d46996f,
+      type: 3}
+    weight: 0.17
   obstaclesPrefab:
   - {fileID: 3993773330842725684, guid: 71e48bcaea9e4464996d799e3774d0c7, type: 3}
   - {fileID: 3993773330842725684, guid: 40569c759b727f84799e4e06e5aff5a9, type: 3}
   - {fileID: 3993773330842725684, guid: 4d39d8a2c8b93f44a9bd9809f8506387, type: 3}
   - {fileID: 3993773330842725684, guid: 8428da17a00dfcb4c9614f26e96ccef9, type: 3}
+  spongePrefab: {fileID: 3105557388023598307, guid: 46c069b624e902d4f814d35ea392959c,
+    type: 3}
   coin:
     element: {fileID: 7082181682048220480, guid: c0fc8734a80c2d24fa755d5b273e1a4d,
       type: 3}

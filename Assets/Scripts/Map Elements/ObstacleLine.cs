@@ -6,6 +6,7 @@ public class ObstacleLine : MonoBehaviour
 {
     [Header("River Info")]
     [SerializeField] private int numObstacles = 3;
+    [SerializeField] private float obstacleMinSpeed = 1;
     [SerializeField] private float obstacleMaxSpeed;
     [SerializeField] private bool leftToRight;
     private Vector3 horizontalDir;
@@ -31,11 +32,12 @@ public class ObstacleLine : MonoBehaviour
         leftToRight = Random.Range(0, 2) == 0 ? false : true;
         horizontalDir = leftToRight ? Vector3.right : Vector3.left;
 
-        obstacleSpeed = Random.Range(1, obstacleMaxSpeed);
+        obstacleSpeed = Random.Range(obstacleMinSpeed, obstacleMaxSpeed);
     }
 
     private void Update()
     {
+        if (!GameManager.instance.IsGameActive()) return;
         foreach (Transform t in obstacles)
         {
             t.Translate(obstacleSpeed * Time.deltaTime * horizontalDir);

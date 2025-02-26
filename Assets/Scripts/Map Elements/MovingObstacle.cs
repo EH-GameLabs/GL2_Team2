@@ -8,7 +8,8 @@ public class MovingObstacle : MonoBehaviour
         {
             // Animazione
             //animator.SetBool("Dead", true);
-            GameManager.instance.GameOver();
+            if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
+                GameManager.instance.GameOver();
             other.GetComponent<BoxCollider>().enabled = false;
         }
     }

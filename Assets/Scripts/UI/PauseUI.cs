@@ -38,10 +38,8 @@ public class PauseUI : MonoBehaviour, IGameUI
             yield return new WaitForSeconds(1f);
             t--;
         }
-
         resumeButton.SetActive(true);
         UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
         GameManager.instance.SetIsGameActive(true);
     }
-
 }

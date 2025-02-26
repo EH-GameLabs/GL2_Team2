@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4595583372156637581}
-  - component: {fileID: 6971058855403540492}
   - component: {fileID: 8458333052486153233}
   m_Layer: 4
-  m_Name: RiverLine
+  m_Name: RiverSpongeLine
   m_TagString: Line
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,26 +37,6 @@ Transform:
   - {fileID: 226182537645981942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6971058855403540492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638946499249988275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04fe9dce8a71d8f4b9291ba3fcd985df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numObstacles: 3
-  obstacleMinSpeed: 2
-  obstacleMaxSpeed: 5
-  leftToRight: 1
-  obstaclePrefab: {fileID: 1286120316306331921, guid: 5785f0ecd1f43ad43bd7cd1b05f1949f,
-    type: 3}
-  point1: {fileID: 6671599122756469847}
-  point2: {fileID: 4555470823334651470}
 --- !u!65 &8458333052486153233
 BoxCollider:
   m_ObjectHideFlags: 0
