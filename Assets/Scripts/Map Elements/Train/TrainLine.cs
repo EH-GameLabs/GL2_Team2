@@ -17,6 +17,9 @@ public class TrainLine : MonoBehaviour
     [SerializeField] private GameObject point1;
     [SerializeField] private GameObject point2;
 
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+
     private void Start()
     {
         leftToRight = Random.Range(0, 2) == 0 ? false : true;
@@ -34,7 +37,9 @@ public class TrainLine : MonoBehaviour
 
     private IEnumerator SpawnAtInterval(float timer)
     {
+        animator.SetBool("ArrivingTrain", false);
         yield return new WaitForSeconds(timer);
+        animator.SetBool("ArrivingTrain", true);
         currentTrain = Instantiate(obstaclePrefab,
             leftToRight ? point1.transform.position : point2.transform.position,
             leftToRight ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0),

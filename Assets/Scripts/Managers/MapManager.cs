@@ -69,15 +69,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //SpawnLine(ChooseLine());
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnLine(ChooseLine());
-        }
-    }
-
     public GameObject ChooseLine()
     {
         //return linePrefabs[Random.Range(0, linePrefabs.Count)];
@@ -111,9 +102,11 @@ public class MapManager : MonoBehaviour
         }
         else
         {
+            pathIndexes.Clear();
             for (int i = 0; i < mapLength; i++)
             {
                 currentline[i] = true;
+                pathIndexes.Add(i);
             }
         }
         spawnPoint.z += 1;
