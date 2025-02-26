@@ -54,8 +54,8 @@ MonoBehaviour:
   obstacleMinSpeed: 2
   obstacleMaxSpeed: 5
   leftToRight: 1
-  obstaclePrefab: {fileID: 1286120316306331921, guid: 5785f0ecd1f43ad43bd7cd1b05f1949f,
-    type: 3}
+  obstaclePrefabs:
+  - {fileID: 1286120316306331921, guid: 5785f0ecd1f43ad43bd7cd1b05f1949f, type: 3}
   point1: {fileID: 6671599122756469847}
   point2: {fileID: 4555470823334651470}
 --- !u!65 &8458333052486153233

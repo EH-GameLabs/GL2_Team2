@@ -13,31 +13,47 @@ public class ObstacleLine : MonoBehaviour
     private float obstacleSpeed = 1.0f;
 
     [Header("Obstacles")]
-    [SerializeField] private GameObject obstaclePrefab;
+    [SerializeField] private List<GameObject> obstaclePrefabs;
     private List<Transform> obstacles = new List<Transform>();
 
     [Header("Spawn/Despawn")]
     [SerializeField] private GameObject point1;
     [SerializeField] private GameObject point2;
 
+    private float spawnTimer;
+    private float timer;
+
     private void Start()
     {
         obstacles.Clear();
-        for (int i = 0; i < numObstacles; i++)
-        {
-            float size = obstaclePrefab.GetComponent<BoxCollider>().size.x;
-            float timer = Random.Range(1 + i, numObstacles * 2 * i) + size * i;
-            StartCoroutine(SpawnAtRandomInterval(timer));
-        }
+        //for (int i = 0; i < numObstacles; i++)
+        //{
+        //    GameObject obstaclePrefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)];
+        float size = obstaclePrefabs[0].GetComponent<BoxCollider>().size.x;
+        spawnTimer = Random.Range(1, numObstacles * 2) + size;
+        //    StartCoroutine(SpawnAtRandomInterval(obstaclePrefab, timer));
+        //}
         leftToRight = Random.Range(0, 2) == 0 ? false : true;
-        horizontalDir = leftToRight ? Vector3.right : Vector3.left;
+        horizontalDir = leftToRight ? Vector3.right : Vector3.right;
 
         obstacleSpeed = Random.Range(obstacleMinSpeed, obstacleMaxSpeed);
+        timer = spawnTimer;
     }
 
     private void Update()
     {
         if (!GameManager.instance.IsGameActive()) return;
+
+        if (obstacles.Count < numObstacles)
+        {
+            timer += Time.deltaTime;
+            if (timer > spawnTimer)
+            {
+                SpawnObstacle(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)]);
+                timer = 0;
+            }
+        }
+
         foreach (Transform t in obstacles)
         {
             t.Translate(obstacleSpeed * Time.deltaTime * horizontalDir);
@@ -45,10 +61,12 @@ public class ObstacleLine : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnAtRandomInterval(float timer)
+    private void SpawnObstacle(GameObject obstaclePrefab)
     {
-        yield return new WaitForSeconds(timer);
-        GameObject g = Instantiate(obstaclePrefab, leftToRight ? point1.transform.position : point2.transform.position, Quaternion.identity, transform);
+        GameObject g = Instantiate(obstaclePrefab,
+            leftToRight ? point1.transform.position : point2.transform.position,
+            leftToRight ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0),
+            transform);
         obstacles.Add(g.transform);
     }
 

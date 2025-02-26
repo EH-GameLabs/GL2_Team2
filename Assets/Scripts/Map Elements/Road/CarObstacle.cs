@@ -4,14 +4,17 @@ using UnityEngine;
 public class CarObstacle : MovingObstacle
 {
     [SerializeField] private GameObject[] meshes;
+    [SerializeField] private bool needAnimation;
     [SerializeField] private float animationTime;
     [SerializeField] private Animator animator;
 
     private void Start()
     {
-        meshes[0].SetActive(true);
         meshes[1].SetActive(false);
-        StartCoroutine(AnimationRoutine());
+        meshes[0].SetActive(true);
+
+        if (needAnimation)
+            StartCoroutine(AnimationRoutine());
     }
 
     public IEnumerator AnimationRoutine()
@@ -29,6 +32,4 @@ public class CarObstacle : MovingObstacle
         animator.SetBool("Dead", false);
         GameManager.instance.GameOver();
     }
-
-    // crystal disk info
 }

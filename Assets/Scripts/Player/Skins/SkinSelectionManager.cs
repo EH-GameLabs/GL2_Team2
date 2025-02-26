@@ -27,31 +27,31 @@ public class SkinSelectionManager : MonoBehaviour
 
     private void Start()
     {
-        lockedSkin = FindAnyObjectByType<LockedSkin>();
+        //lockedSkin = FindAnyObjectByType<LockedSkin>();
         InitializeOthers();
-        InitializeAll();
+        //InitializeAll();
     }
 
-    private void InitializeAll()
-    {
-        Transform skin = null;
-        bool locked = false;
+    //private void InitializeAll()
+    //{
+    //    Transform skin = null;
+    //    bool locked = false;
 
-        // left
-        skin = leftSkinSlot.transform.GetChild(0);
-        locked = DisableIfLocked(skin);
-        lockedSkin.ActiveLeft(locked);
+    //    // left
+    //    skin = leftSkinSlot.transform.GetChild(0);
+    //    locked = DisableIfLocked(skin);
+    //    lockedSkin.ActiveLeft(locked);
 
-        // main
-        skin = mainSkinSlot.transform.GetChild(0);
-        locked = DisableIfLocked(skin);
-        lockedSkin.ActiveMain(locked);
+    //    // main
+    //    skin = mainSkinSlot.transform.GetChild(0);
+    //    locked = DisableIfLocked(skin);
+    //    lockedSkin.ActiveMain(locked);
 
-        // right
-        skin = rightSkinSlot.transform.GetChild(0);
-        locked = DisableIfLocked(skin);
-        lockedSkin.ActiveRight(locked);
-    }
+    //    // right
+    //    skin = rightSkinSlot.transform.GetChild(0);
+    //    locked = DisableIfLocked(skin);
+    //    lockedSkin.ActiveRight(locked);
+    //}
 
     private void InitializeOthers()
     {
@@ -101,7 +101,7 @@ public class SkinSelectionManager : MonoBehaviour
 
     public IEnumerator TranslateSkins(Transform skin, Transform endPos)
     {
-        bool locked = DisableIfLocked(skin);
+        //bool locked = DisableIfLocked(skin);
 
         skin.SetParent(endPos);
         if (endPos == BackSkinSlot.transform) skin.gameObject.SetActive(false);
@@ -119,17 +119,17 @@ public class SkinSelectionManager : MonoBehaviour
 
         if (endPos == rightSkinSlot.transform)
         {
-            lockedSkin.ActiveRight(locked);
+            //lockedSkin.ActiveRight(locked);
             skin.transform.rotation = endPos.rotation;
         }
         else if (endPos == leftSkinSlot.transform)
         {
-            lockedSkin.ActiveLeft(locked);
+            //lockedSkin.ActiveLeft(locked);
             skin.transform.rotation = endPos.rotation;
         }
         else if (endPos == mainSkinSlot.transform)
         {
-            lockedSkin.ActiveMain(locked);
+            //lockedSkin.ActiveMain(locked);
         }
         skin.position = endPos.position;
 

@@ -257,6 +257,7 @@ public class PlayerController : MonoBehaviour
 
             skinToUnlock = lockedSkin[Random.Range(0, lockedSkin.Count)].skin;
             print("skin unlocked: " + skinToUnlock);
+            skinToUnlock.GetComponent<SkinTypeSelector>().ActiveSkin(true);
 
             // unlock selected skin
             UnlockSkin(skinToUnlock);
