@@ -30,6 +30,8 @@ public class MainMenuUI : MonoBehaviour, IGameUI
     [SerializeField] private GameObject settingsButton;
     [SerializeField] private GameObject soundButton;
     [SerializeField] private GameObject exitButton;
+    [SerializeField] private GameObject settings;
+    [SerializeField] private Slider audioSlider;
 
     [Header("Settings")]
     [SerializeField] private GameObject imageSettings;
@@ -88,9 +90,11 @@ public class MainMenuUI : MonoBehaviour, IGameUI
     {
         isActive = !isActive;
         dropdownButton.sprite = isActive ? dropdown2 : dropdown1;
+        //settings.SetActive(!settings.activeInHierarchy);
         settingsButton.SetActive(!settingsButton.activeInHierarchy);
         soundButton.SetActive(!soundButton.activeInHierarchy);
         exitButton.SetActive(!exitButton.activeInHierarchy);
+        settings.SetActive(!settings.activeInHierarchy);
     }
 
     public void ExitGame()
@@ -118,6 +122,7 @@ public class MainMenuUI : MonoBehaviour, IGameUI
 
         if (soundSettings.activeInHierarchy)
         {
+            audioSlider.value = SoundManager.instance.GetAudioVolume();
             imageSettings.SetActive(false);
         }
     }

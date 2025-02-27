@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour//Singleton<UIManager>
 {
@@ -63,5 +64,10 @@ public class UIManager : MonoBehaviour//Singleton<UIManager>
     public GameUI GetCurrentActiveUI()
     {
         return currentActiveUI;
+    }
+
+    public void SetAudio(Slider slider) 
+    {
+        SoundManager.instance.ApplyVolumeSettings(slider.value);
     }
 }
