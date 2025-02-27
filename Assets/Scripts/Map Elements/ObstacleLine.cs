@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class ObstacleLine : MonoBehaviour
@@ -30,7 +31,8 @@ public class ObstacleLine : MonoBehaviour
         //{
         //    GameObject obstaclePrefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)];
         float size = obstaclePrefabs[0].GetComponent<BoxCollider>().size.x;
-        spawnTimer = Random.Range(1, numObstacles * 2) + size;
+        //spawnTimer = Random.Range(1, numObstacles * 2) + size; //DELETED
+        spawnTimer = Random.Range(1f, numObstacles) + size; //ADDED
         //    StartCoroutine(SpawnAtRandomInterval(obstaclePrefab, timer));
         //}
         leftToRight = Random.Range(0, 2) == 0 ? false : true;
@@ -49,7 +51,9 @@ public class ObstacleLine : MonoBehaviour
             timer += Time.deltaTime;
             if (timer > spawnTimer)
             {
-                SpawnObstacle(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)]);
+                SpawnObstacle(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Count)]); //ADDED
+                float size = obstaclePrefabs[0].GetComponent<BoxCollider>().size.x; //ADDED
+                spawnTimer = Random.Range(1f, numObstacles) + size;
                 timer = 0;
             }
         }
