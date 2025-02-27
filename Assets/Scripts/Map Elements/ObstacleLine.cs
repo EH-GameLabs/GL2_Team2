@@ -42,7 +42,7 @@ public class ObstacleLine : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.instance.IsGameActive()) return;
+        if (UIManager.Instance.GetCurrentActiveUI() != UIManager.GameUI.InGame) return;
 
         if (obstacles.Count < numObstacles)
         {

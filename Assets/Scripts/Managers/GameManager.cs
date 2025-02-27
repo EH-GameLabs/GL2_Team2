@@ -1,6 +1,9 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour//Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     private static GameManager Instance;
     public static GameManager instance
@@ -51,9 +54,16 @@ public class GameManager : MonoBehaviour//Singleton<GameManager>
 
     public void GameOver()
     {
+        FindAnyObjectByType<PlayerController>().enabled = false;
         PlayerDataManager.instance.SaveData();
-        isGameActive = false;
-        FindAnyObjectByType<InGameUI>().GoToGameOver();
+        FindAnyObjectByType<CameraMovement>().enabled = false;
+        StartCoroutine(ResetWorld());
+    }
+
+    private IEnumerator ResetWorld()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("MainScene");
     }
 
     // GETTERS & SETTERS

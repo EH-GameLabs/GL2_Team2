@@ -63,8 +63,13 @@ public class PlayerController : MonoBehaviour
 
         if (!isGrounded(mapLayer) && !isGrounded(logLayer) && isGrounded(waterLayer))
         {
-            GameManager.instance.GameOver();
+            //GameManager.instance.GameOver();
             //gameObject.SetActive(false);
+            animator.SetBool("RiverDeath", true);
+            if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
+            {
+                FindAnyObjectByType<CameraMovement>().SetFocusOnPlayer();
+            }
         }
 
         Debug.DrawRay(transform.position + rayOffset, Vector3.down * 5, Color.yellow);
@@ -145,6 +150,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerScore--;
             }
+            SoundManager.instance.PlaySFX(SoundManager.instance.playerStep);
             StartCoroutine(MovePlayer(direction, movementType));
             myDelegate = null;
         }

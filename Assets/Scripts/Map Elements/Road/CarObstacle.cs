@@ -26,10 +26,4 @@ public class CarObstacle : MovingObstacle
             yield return new WaitForSeconds(animationTime);
         }
     }
-
-    public void CallGameOver()
-    {
-        animator.SetBool("Dead", false);
-        GameManager.instance.GameOver();
-    }
 }

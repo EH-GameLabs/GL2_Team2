@@ -6,7 +6,16 @@ public class BackCollider : MonoBehaviour
     {
         if (other.CompareTag(Tags.Player))
         {
-            GameManager.instance.GameOver();
+            if (GameManager.instance.IsGameActive())
+            {
+                Animator animator = other.GetComponent<Animator>();
+                animator.SetBool("AfkDeath", true);
+                if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
+                {
+                    FindAnyObjectByType<CameraMovement>().SetFocusOnPlayer();
+                }
+            }
+
         }
     }
 }

@@ -8,9 +8,11 @@ public class RiverDeathPoint : MonoBehaviour
         {
             print("fiume morte");
             // Animazione
-            //animator.SetBool("Dead", true);
             if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
-                GameManager.instance.GameOver();
+            {
+                FindAnyObjectByType<CameraMovement>().SetFocusOnPlayer();
+            }
+
         }
     }
 }

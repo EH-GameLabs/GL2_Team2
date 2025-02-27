@@ -7,9 +7,12 @@ public class MovingObstacle : MonoBehaviour
         if (other.CompareTag(Tags.Player))
         {
             // Animazione
-            //animator.SetBool("Dead", true);
             if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
+            {
+                Animator animator = other.GetComponent<Animator>();
+                animator.SetBool("CarDeath", true);
                 GameManager.instance.GameOver();
+            }
             other.GetComponent<BoxCollider>().enabled = false;
         }
     }

@@ -66,12 +66,15 @@ public class MainMenuUI : MonoBehaviour, IGameUI
 
         if (playerCoins >= coinsToPull)
         {
+            SoundManager.instance.PlaySFX(SoundManager.instance.skin);
             PlayerController.instance.PullRandomSkin(coinsToPull);
         }
         else
         {
             // animazione oste arrabbiato
+            SoundManager.instance.PlaySFX(SoundManager.instance.grunt);
             print("Animazione");
+
         }
     }
 

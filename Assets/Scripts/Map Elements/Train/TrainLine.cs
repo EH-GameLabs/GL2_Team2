@@ -29,7 +29,7 @@ public class TrainLine : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.instance.IsGameActive()) return;
+        if (UIManager.Instance.GetCurrentActiveUI() != UIManager.GameUI.InGame) return;
         if (currentTrain == null) return;
 
         currentTrain.transform.Translate(obstacleSpeed * Time.deltaTime * Vector3.right);
@@ -41,6 +41,7 @@ public class TrainLine : MonoBehaviour
         animator.SetBool("ArrivingTrain", false);
         yield return new WaitForSeconds(timer);
         animator.SetBool("ArrivingTrain", true);
+        SoundManager.instance.PlaySFX(SoundManager.instance.trainBell);
         currentTrain = Instantiate(obstaclePrefab,
             leftToRight ? point1.transform.position : point2.transform.position,
             leftToRight ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0),

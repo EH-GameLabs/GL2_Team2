@@ -179,6 +179,7 @@ public class SkinSelectionManager : MonoBehaviour
                     popUpLocked.SetActive(false);
                     StopCoroutine(PopUpTimer(popUpOK));
                     StartCoroutine(PopUpTimer(popUpOK));
+                    SoundManager.instance.PlaySFX(SoundManager.instance.skin);
                 }
                 else
                 {
@@ -186,6 +187,7 @@ public class SkinSelectionManager : MonoBehaviour
                     popUpOK.SetActive(false);
                     StopCoroutine(PopUpTimer(popUpLocked));
                     StartCoroutine(PopUpTimer(popUpLocked));
+                    SoundManager.instance.PlaySFX(SoundManager.instance.grunt);
                 }
             }
             else
