@@ -14,6 +14,10 @@ public class SkinSelectionManager : MonoBehaviour
     [SerializeField] private PlayerDataSO skins;
     [SerializeField] private float speedRotation;
 
+    [Header("PopUp")]
+    [SerializeField] private GameObject popUpOK;
+    [SerializeField] private GameObject popUpLocked;
+
     private LockedSkin lockedSkin;
     private bool isTurning;
 
@@ -172,9 +176,17 @@ public class SkinSelectionManager : MonoBehaviour
                 {
                     skin.isActive = true;
                     changed = true;
+                    popUpLocked.SetActive(false);
+                    StopCoroutine(PopUpTimer(popUpOK));
+                    StartCoroutine(PopUpTimer(popUpOK));
                 }
                 else
+                {
                     Debug.LogWarning("This skin is locked");
+                    popUpOK.SetActive(false);
+                    StopCoroutine(PopUpTimer(popUpLocked));
+                    StartCoroutine(PopUpTimer(popUpLocked));
+                }
             }
             else
             {
@@ -183,6 +195,13 @@ public class SkinSelectionManager : MonoBehaviour
         }
 
         if (!changed) activeSkin.isActive = true;
+    }
+
+    private IEnumerator PopUpTimer(GameObject popUp)
+    {
+        popUp.SetActive(true);
+        yield return new WaitForSeconds(3);
+        popUp.SetActive(false);
     }
 
     public void ExitScreen()

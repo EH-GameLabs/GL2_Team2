@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4495135856450450221}
   - component: {fileID: 6989894826270429202}
   - component: {fileID: 5229120160691393520}
+  - component: {fileID: 4955073355325855355}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -67,6 +68,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b4152fff22756c4c8a34a9b69a4d96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4955073355325855355
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082181682048220480}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1fb41faac82e9e54380b3bb81627180d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5050391798936989130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,17 +100,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1879b06dffc27724cac2712da01f6852,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1879b06dffc27724cac2712da01f6852,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1879b06dffc27724cac2712da01f6852,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1879b06dffc27724cac2712da01f6852,
         type: 3}
