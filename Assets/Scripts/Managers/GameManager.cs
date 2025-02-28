@@ -52,11 +52,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool isResetting = false;
+
     public void GameOver()
     {
+        if (isResetting) return;
         FindAnyObjectByType<PlayerController>().enabled = false;
         PlayerDataManager.instance.SaveData();
         FindAnyObjectByType<CameraMovement>().enabled = false;
+        isResetting = true;
         StartCoroutine(ResetWorld());
     }
 
@@ -64,6 +68,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("MainScene");
+        isResetting = false;
     }
 
     // GETTERS & SETTERS

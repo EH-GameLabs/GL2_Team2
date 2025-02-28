@@ -50,6 +50,7 @@ MonoBehaviour:
   meshes:
   - {fileID: 6272919845374547861}
   - {fileID: 8620808737547095808}
+  needAnimation: 1
   animationTime: 0.5
   animator: {fileID: 0}
 --- !u!65 &4643070794257327279
