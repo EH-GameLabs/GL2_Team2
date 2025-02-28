@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObject/PlayerData")]
 public class PlayerDataSO : ScriptableObject
 {
+    public bool alreadyPlayed;
     public int bestScore;
     public int coins;
     public List<SkinData> Skins;

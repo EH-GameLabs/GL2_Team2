@@ -197,6 +197,7 @@ public class SkinSelectionManager : MonoBehaviour
         }
 
         if (!changed) activeSkin.isActive = true;
+        PlayerDataManager.instance.SaveData();
     }
 
     private IEnumerator PopUpTimer(GameObject popUp)

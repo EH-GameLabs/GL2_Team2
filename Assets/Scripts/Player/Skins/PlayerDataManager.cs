@@ -19,6 +19,13 @@ public class PlayerDataManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this);
+
+        LoadData();
+        if (!SkinData.alreadyPlayed)
+        {
+            SkinData.alreadyPlayed = true;
+            SaveData();
+        }
     }
 
     public PlayerDataSO SkinData;
@@ -83,12 +90,6 @@ public class PlayerDataManager : MonoBehaviour
     public void SetPlayerRef(PlayerController playerRef)
     {
         this.player = playerRef;
-        SaveData();
         LoadData();
-    }
-
-    public void PullNewSkin()
-    {
-        // TODO
     }
 }

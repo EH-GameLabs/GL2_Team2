@@ -10,9 +10,13 @@ public class RiverDeathPoint : MonoBehaviour
             // Animazione
             if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
             {
-                FindAnyObjectByType<CameraMovement>().SetFocusOnPlayer();
+                Animator animator = other.GetComponent<Animator>();
+                animator.SetBool("RiverDeath", true);
+                if (UIManager.Instance.GetCurrentActiveUI() == UIManager.GameUI.InGame)
+                {
+                    FindAnyObjectByType<CameraMovement>().SetFocusOnPlayer();
+                }
             }
-
         }
     }
 }

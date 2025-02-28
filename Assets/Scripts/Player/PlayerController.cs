@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
         SetActiveSkin();
     }
 
-    public void PullRandomSkin(int coinsToPull)
+    public GameObject PullRandomSkin(int coinsToPull)
     {
         GameObject skinToUnlock = null;
         List<SkinData> lockedSkin = new();
@@ -268,10 +268,12 @@ public class PlayerController : MonoBehaviour
             // unlock selected skin
             UnlockSkin(skinToUnlock);
             PlayerDataManager.instance.SaveData();
+            return skinToUnlock;
         }
         else
         {
             Debug.Log("You have collected all the skins available!");
+            return null;
         }
     }
 

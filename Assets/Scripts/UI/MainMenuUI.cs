@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,6 +40,10 @@ public class MainMenuUI : MonoBehaviour, IGameUI
     [Header("Sound")]
     [SerializeField] private GameObject soundSettings;
 
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private List<GameObject> skins;
+
     private bool isActive;
 
     private void Start()
@@ -69,15 +74,36 @@ public class MainMenuUI : MonoBehaviour, IGameUI
         if (playerCoins >= coinsToPull)
         {
             SoundManager.instance.PlaySFX(SoundManager.instance.skin);
-            PlayerController.instance.PullRandomSkin(coinsToPull);
+            GameObject g = PlayerController.instance.PullRandomSkin(coinsToPull);
+            int i = 0;
+            foreach (var skin in skins)
+            {
+                i++;
+                if (skin.GetComponent<SkinAnimation>().SkinType == g.GetComponent<SkinTypeSelector>().SkinType)
+                {
+                    animator.SetInteger("Skin", i);
+                    GameManager.instance.SetIsGameActive(false);
+                }
+            }
         }
         else
         {
             // animazione oste arrabbiato
             SoundManager.instance.PlaySFX(SoundManager.instance.grunt);
-            print("Animazione");
+            animator.SetBool("BadPull", true);
 
         }
+    }
+
+    public void DisableAnimation()
+    {
+        animator.SetBool("BadPull", false);
+    }
+
+    public void ActivateGame()
+    {
+        animator.SetInteger("Skin", 0);
+        GameManager.instance.SetIsGameActive(true);
     }
 
     public void SetCoins(string value)

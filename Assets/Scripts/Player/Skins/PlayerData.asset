@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f5ba8fccb6ae447ae478bfbdbe4e06, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  alreadyPlayed: 0
   bestScore: 0
   coins: 0
   Skins:

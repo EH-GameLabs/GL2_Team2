@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseUI : MonoBehaviour, IGameUI
 {
@@ -25,7 +26,7 @@ public class PauseUI : MonoBehaviour, IGameUI
     {
         resumeButton.SetActive(false);
         StartCoroutine(ResumeTimerRoutine());
-        UIManager.Instance.ShowUI(UIManager.GameUI.Pause);
+        //UIManager.Instance.ShowUI(UIManager.GameUI.Pause);
     }
 
     private IEnumerator ResumeTimerRoutine()
@@ -41,5 +42,10 @@ public class PauseUI : MonoBehaviour, IGameUI
         resumeButton.SetActive(true);
         UIManager.Instance.ShowUI(UIManager.GameUI.InGame);
         GameManager.instance.SetIsGameActive(true);
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
